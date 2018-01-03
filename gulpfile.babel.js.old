@@ -18,17 +18,17 @@
  *
  * Learn more at: http://gulpjs.com
  */
-import './build/check';
-import './build/ci';
-import './build/backend';
-import './build/build';
-import './build/dependencies';
-import './build/deploy';
-import './build/index';
-import './build/script';
-import './build/serve';
-import './build/style';
-import './build/test';
-import './build/i18n';
+import './build_old/check';
+import './build_old/ci';
+import './build_old/backend';
+import './build_old/build';
+import './build_old/dependencies';
+import './build_old/deploy';
+import './build_old/index';
+import './build_old/script';
+import './build_old/serve';
+import './build_old/style';
+import './build_old/test';
+import './build_old/i18n';
 
 // No business logic in this file.
