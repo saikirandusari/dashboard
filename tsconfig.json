@@ -6,7 +6,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./.tmp/out-tsc",
-    "sourceMap": false,
+    "sourceMap": true,
     "module": "es2015",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -20,11 +20,5 @@
       "es2017",
       "dom"
     ]
-  },
-  "exclude": [
-    "vendor",
-    "node_modules",
-    "built",
-    "dist"
-  ]
+  }
 }
