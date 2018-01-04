@@ -6,7 +6,6 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class AssetsService {
   private assetsPath = 'assets/images';
   private appLogoSvg = 'kubernetes-logo.svg';
-  private appLogoPng = 'kubernetes-logo.png';
   private appLogoTextSvg = 'kubernetes-logo-text.svg';
 
   private appLogoIcon = 'kd-logo';
