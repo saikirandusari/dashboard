@@ -22,6 +22,10 @@
   width: 4 * $baseline-grid;
 }
 
+kd-chrome {
+  flex-direction: column !important;
+}
+
 .kd-toolbar-logo-link {
   .kd-toolbar-logo {
     @extend %kd-toolbar-logo-placeholder;
@@ -52,42 +56,40 @@
   justify-content: flex-end;
 }
 
-kd-chrome {
-  .kd-toolbar {
-    background-color: $content-background;
+.kd-toolbar {
+  background-color: $content-background;
+  color: $primary;
+  height: 6 * $baseline-grid;
+  min-height: 6 * $baseline-grid;
+  padding-left: 1.75 * $baseline-grid;
+
+  .kd-global-action-icon {
     color: $primary;
-    height: 6 * $baseline-grid;
-    min-height: 6 * $baseline-grid;
-    padding-left: 1.75 * $baseline-grid;
-
-    .kd-global-action-icon {
-      color: $primary;
-      margin-right: $baseline-grid / 4;
-      margin-top: .6 * $baseline-grid;
-    }
+    margin-right: $baseline-grid / 4;
+    margin-top: .6 * $baseline-grid;
   }
+}
 
-  .kd-system-banner {
-    background-color: $running-resource-color;
-    box-shadow: $whiteframe-shadow-1dp;
-    color: $foreground-1;
-    display: inline;
-    font-size: $body-font-size-base;
-    height: 6 * $baseline-grid;
-    line-height: 6 * $baseline-grid;
-    min-height: 6 * $baseline-grid;
-    overflow: hidden;
-    padding: 0 (3 * $baseline-grid);
-    white-space: nowrap;
-  }
+.kd-system-banner {
+  background-color: $running-resource-color;
+  box-shadow: $whiteframe-shadow-1dp;
+  color: $foreground-1;
+  display: inline;
+  font-size: $body-font-size-base;
+  height: 6 * $baseline-grid;
+  line-height: 6 * $baseline-grid;
+  min-height: 6 * $baseline-grid;
+  overflow: hidden;
+  padding: 0 (3 * $baseline-grid);
+  white-space: nowrap;
+}
 
-  .kd-system-banner-error {
-    background-color: $error-color;
-  }
+.kd-system-banner-error {
+  background-color: $error-color;
+}
 
-  .kd-system-banner-warning {
-    background-color: $warning;
-  }
+.kd-system-banner-warning {
+  background-color: $warning;
 }
 
 .kd-second-toolbar {

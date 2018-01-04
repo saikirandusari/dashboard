@@ -14,78 +14,80 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<mat-toolbar class="kd-toolbar">
-  <div class="mat-toolbar-tools kd-toolbar-tools">
-    <div class="kd-logo-bar">
-      <a href="{{getOverviewStateName()}}"
-         class="kd-toolbar-logo-link">
-        <mat-icon svgIcon="kd-logo"
-                 class="kd-toolbar-logo">
-        </mat-icon>
-        <mat-icon svgIcon="assets/images/kubernetes-logo-text.svg"
-                 class="kd-toolbar-logo-text">
-        </mat-icon>
-      </a>
-    </div>
-    <!--<kd-search class="kd-search-bar"></kd-search>-->
-    <div class="kd-global-actions">
-      <button mat-button
-              (click)="create()"
-              matTooltip="Create an application or any Kubernetes resource"
-              class="kd-actionbar-button">
-        <mat-icon svgIcon="add" class="kd-global-action-icon"></mat-icon>
-        <!--<mat-tooltip delay="500"-->
-                    <!--mat-autohide>-->
-          <!--<div class="kd-actionbar-button-text">-->
-            <!--[[Create an application or any Kubernetes resource|Tooltip for global action bar create button tooltip.]]-->
-          <!--</div>-->
-        <!--</mat-tooltip>-->
-        Create
-      </button>
-      <!--<kd-control-panel></kd-control-panel>-->
-    </div>
-  </div>
-</mat-toolbar>
-
-<mat-toolbar class="kd-second-toolbar">
-  <div class="mat-toolbar-tools kd-toolbar-tools">
-    <!--<kd-nav-hamburger flex="none"></kd-nav-hamburger>-->
-    <!--<kd-breadcrumbs class="kd-actionbar-breadcrumbs"-->
-                    <!--limit="3"-->
-                    <!--flex="auto"-->
-                    <!--layout="row"></kd-breadcrumbs>-->
-    <!--<div flex="auto"-->
-         <!--ui-view="toolbar"></div>-->
-    <!--<kd-actionbar></kd-actionbar>-->
-  </div>
-</mat-toolbar>
-
-<mat-toolbar class="kd-system-banner"
-            ng-class="$ctrl.getSystemBannerClass()"
-            ng-if="$ctrl.isSystemBannerVisible()"
-            ng-bind-html="$ctrl.getSystemBannerMessage()">
-</mat-toolbar>
-
-<div fxLayout="row"
-     fxFlex="auto"
-     class="kd-app-entire-content">
-  <!--<kd-nav flex="none"></kd-nav>-->
-  <div fxFlex="auto"
-       class="kd-main-content-box">
-    <div ng-switch="$ctrl.loading"
-         class="kd-content-div-filled kd-main-content-div">
-      <div ng-switch-when="true"
-           class="kd-spinner">
-        <mat-spinner *ngIf="showLoadingSpinner"
-                     mode="indeterminate"
-                     [diameter]="48">
-        </mat-spinner>
+<div fxLayout="column">
+  <mat-toolbar class="kd-toolbar">
+    <div class="kd-toolbar-tools">
+      <div class="kd-logo-bar">
+        <a [href]="getOverviewStateName()"
+           class="kd-toolbar-logo-link">
+          <mat-icon [svgIcon]="assets.getAppLogo()"
+                    class="kd-toolbar-logo">
+          </mat-icon>
+          <mat-icon [svgIcon]="assets.getAppLogoText()"
+                    class="kd-toolbar-logo-text">
+          </mat-icon>
+        </a>
       </div>
-      <div ng-switch-when="false"
-           class="kd-app-content">
-        <div ui-view
-             class="mat-body-1"
-             ng-class="{'kd-content-div-filled': $ctrl.isFillContentView()}"></div>
+      <!--<kd-search class="kd-search-bar"></kd-search>-->
+      <div class="kd-global-actions">
+        <button mat-button
+                (click)="create()"
+                matTooltip="Create an application or any Kubernetes resource"
+                class="kd-actionbar-button">
+          <mat-icon svgIcon="add" class="kd-global-action-icon"></mat-icon>
+          <!--<mat-tooltip delay="500"-->
+          <!--mat-autohide>-->
+          <!--<div class="kd-actionbar-button-text">-->
+          <!--[[Create an application or any Kubernetes resource|Tooltip for global action bar create button tooltip.]]-->
+          <!--</div>-->
+          <!--</mat-tooltip>-->
+          Create
+        </button>
+        <!--<kd-control-panel></kd-control-panel>-->
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <mat-toolbar class="kd-second-toolbar">
+    <div class="mat-toolbar-tools kd-toolbar-tools">
+      <!--<kd-nav-hamburger flex="none"></kd-nav-hamburger>-->
+      <!--<kd-breadcrumbs class="kd-actionbar-breadcrumbs"-->
+      <!--limit="3"-->
+      <!--flex="auto"-->
+      <!--layout="row"></kd-breadcrumbs>-->
+      <!--<div flex="auto"-->
+      <!--ui-view="toolbar"></div>-->
+      <!--<kd-actionbar></kd-actionbar>-->
+    </div>
+  </mat-toolbar>
+
+  <mat-toolbar class="kd-system-banner"
+               ng-class="$ctrl.getSystemBannerClass()"
+               ng-if="$ctrl.isSystemBannerVisible()"
+               ng-bind-html="$ctrl.getSystemBannerMessage()">
+  </mat-toolbar>
+
+  <div fxLayout="row"
+       fxFlex="auto"
+       class="kd-app-entire-content">
+    <!--<kd-nav flex="none"></kd-nav>-->
+    <div fxFlex="auto"
+         class="kd-main-content-box">
+      <div ng-switch="$ctrl.loading"
+           class="kd-content-div-filled kd-main-content-div">
+        <div ng-switch-when="true"
+             class="kd-spinner">
+          <mat-spinner *ngIf="showLoadingSpinner"
+                       mode="indeterminate"
+                       [diameter]="48">
+          </mat-spinner>
+        </div>
+        <div ng-switch-when="false"
+             class="kd-app-content">
+          <div ui-view
+               class="mat-body-1"
+               ng-class="{'kd-content-div-filled': $ctrl.isFillContentView()}"></div>
+        </div>
       </div>
     </div>
   </div>

@@ -9,6 +9,8 @@ import {
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {HttpClientModule} from "@angular/common/http";
 import {PipesModule} from "../common/pipes/module";
+import {ServicesModule} from "../common/services/module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import {PipesModule} from "../common/pipes/module";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
     MatTooltipModule,
@@ -23,7 +26,8 @@ import {PipesModule} from "../common/pipes/module";
     MatProgressSpinnerModule,
     FlexLayoutModule,
     HttpClientModule,
-    PipesModule
+    PipesModule,
+    ServicesModule
   ],
   providers: [MatIconRegistry],
   bootstrap: [ChromeComponent]
