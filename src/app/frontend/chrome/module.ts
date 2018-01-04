@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {PipesModule} from "../common/pipes/module";
 import {ServicesModule} from "../common/services/module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {RoutingModule} from "../common/routing/module";
+import {APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,9 +29,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FlexLayoutModule,
     HttpClientModule,
     PipesModule,
-    ServicesModule
+    ServicesModule,
+    RoutingModule,
   ],
-  providers: [MatIconRegistry],
+  providers: [
+    MatIconRegistry,
+    {provide: APP_BASE_HREF, useValue: '/'}
+  ],
   bootstrap: [ChromeComponent]
 })
 export class ChromeModule {
