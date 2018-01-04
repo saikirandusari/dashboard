@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {AssetsService} from "../common/services/assets";
 
 @Component({
   selector: 'kd-about',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(AssetsService) public assets: AssetsService) {}
 
   ngOnInit() {
   }

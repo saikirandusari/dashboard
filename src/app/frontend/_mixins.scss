@@ -12,19 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import '../variables';
+@import 'variables';
 
-.kd-about-kubernetes-logo {
-  height: $logo-height;
-  padding: 0 ($baseline-grid * 2) ($baseline-grid * 3) 0;
-}
-
-.kd-copyright-title {
-  padding-top: $baseline-grid * 2;
-}
-
-.kd-footer {
-  color: $foreground-2;
-  font-size: $footer-font-size-base;
-  padding-top: $baseline-grid * 3;
+@mixin kd-icon-size($size: 3 * $baseline-grid) {
+  font-size: $size;
+  height: $size;
+  width: $size;
 }
