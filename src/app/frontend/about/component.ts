@@ -7,6 +7,6 @@ import {AssetsService} from "../common/services/assets";
   styleUrls: ['./style.scss']
 })
 export class AboutComponent {
-  latestCopyrightYear = '2017';
+  latestCopyrightYear = '2018';
   constructor(@Inject(AssetsService) public assets: AssetsService) {}
 }

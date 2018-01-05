@@ -14,19 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<mat-card>
-  <mat-card-title>About</mat-card-title>
+<mat-card class="kd-about-card">
   <mat-card-content>
     <mat-icon class="kd-about-logo-icon" [svgIcon]="assets.getAppLogo()"></mat-icon>
     <div class="kd-about-logo-text">
       <div class="mat-h1 kd-no-margin">Dashboard</div>
       <div class="mat-h3 kd-no-margin">General-purpose web UI for Kubernetes clusters</div>
     </div>
-    <div>Version:</div>
-    <div>Commit SHA:</div>
+    <div>Dashboard Version:</div>
+    <div>Git Commit:</div>
   </mat-card-content>
   <mat-card-footer class="mat-small kd-card-footer">
-    <div>Copyright 2015-{{latestCopyrightYear}} The Kubernetes Authors.</div>
+    <div>Copyright 2015 - {{latestCopyrightYear}} The Kubernetes Authors.</div>
     <div>
       Kubernetes Dashboard is made possible by the Dashboard
       <a href="https://github.com/kubernetes/dashboard/graphs/contributors">community</a> as an

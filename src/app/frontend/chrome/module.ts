@@ -11,6 +11,7 @@ import {ServicesModule} from "../common/services/module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {chromeState} from "./state";
 import {UIRouterModule} from "@uirouter/angular";
+import {NavModule} from "./nav/module";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import {UIRouterModule} from "@uirouter/angular";
       useHash: true,
       otherwise: { state: 'about'},
     }),
+    // Application modules
+    NavModule,
   ],
   providers: [
     MatIconRegistry,

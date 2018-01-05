@@ -68,6 +68,9 @@
   box-shadow: $whiteframe-shadow-1dp;
   height: 7 * $baseline-grid;
   min-height: 7 * $baseline-grid;
+  // Move entire second toolbar above content to avoid elements overlap with
+  // shadow (there was problem with it on IE).
+  z-index: 1;
 }
 
 .kd-system-banner {
@@ -95,9 +98,6 @@
 .kd-app-entire-content {
   background-color: $body;
   max-height: 100%;
-  // Move entire app content below toolbar to avoid elements overlap with
-  // shadow (there was problem with it on IE).
-  z-index: -1;
 }
 
 .kd-app-content {
@@ -145,8 +145,6 @@
   }
 }
 
-
-
 .kd-success {
   color: $success-color;
 }
@@ -157,72 +155,4 @@
 
 .kd-warning {
   color: $warning;
-}
-
-
-
-.kd-text-icon {
-  font-size: inherit;
-  height: inherit;
-  vertical-align: middle;
-}
-
-.kd-comma-separated-item {
-  display: inline-block;
-
-  &:not(:last-child) {
-    &::after {
-      content: ',';
-    }
-  }
-}
-
-.kd-pre-block {
-  margin: 0;
-  min-width: 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-$chip-margin: 0 $baseline-grid ($baseline-grid / 2) 0;
-
-// Style taken(mostly) from angular material md-chip style.
-.kd-chips {
-  background-color: $body;
-  border-radius: $baseline-grid;
-  display: inline-block;
-  margin: $chip-margin;
-  max-width: 100%;
-  vertical-align: bottom;
-}
-
-.kd-chip {
-  display: inline;
-  float: left;
-  max-width: 99%;
-  overflow: hidden;
-  padding: ($baseline-grid / 4) $baseline-grid;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.kd-chips-switch {
-  color: $primary;
-  cursor: pointer;
-  margin-left: -$baseline-grid / 2;
-  outline: none;
-  padding: ($baseline-grid / 4) $baseline-grid;
-}
-
-// Style scrollbars on Webkit-based browsers (e.g., Chrome or Safari).
-* {
-  &::-webkit-scrollbar {
-    background: transparent;
-    height: $baseline-grid;
-    width: $baseline-grid;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $delicate;
-  }
 }
