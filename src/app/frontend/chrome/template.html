@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<div fxLayout="column">
+<div fxLayout="column" fxFill fxFlexFill>
   <mat-toolbar class="kd-toolbar">
-    <div class="kd-toolbar-tools">
+    <div class="kd-toolbar-tools" fxLayout="row" fxFlex="auto">
       <div class="kd-logo-bar">
         <a [href]="getOverviewStateName()"
            class="kd-toolbar-logo-link">
@@ -29,19 +29,13 @@ limitations under the License.
         </a>
       </div>
       <!--<kd-search class="kd-search-bar"></kd-search>-->
-      <div class="kd-global-actions">
+      <div>
         <button mat-button
                 (click)="create()"
                 matTooltip="Create an application or any Kubernetes resource"
                 class="kd-actionbar-button">
           <mat-icon class="kd-global-action-icon">add</mat-icon>
-          <!--<mat-tooltip delay="500"-->
-          <!--mat-autohide>-->
-          <!--<div class="kd-actionbar-button-text">-->
-          <!--[[Create an application or any Kubernetes resource|Tooltip for global action bar create button tooltip.]]-->
-          <!--</div>-->
-          <!--</mat-tooltip>-->
-          Create
+          <span>Create</span>
         </button>
         <!--<kd-control-panel></kd-control-panel>-->
       </div>
@@ -49,7 +43,7 @@ limitations under the License.
   </mat-toolbar>
 
   <mat-toolbar class="kd-second-toolbar">
-    <div class="mat-toolbar-tools kd-toolbar-tools">
+    <div class="kd-toolbar-tools">
       <!--<kd-nav-hamburger flex="none"></kd-nav-hamburger>-->
       <!--<kd-breadcrumbs class="kd-actionbar-breadcrumbs"-->
       <!--limit="3"-->
@@ -63,34 +57,32 @@ limitations under the License.
 
   <mat-toolbar class="kd-system-banner"
                ng-class="$ctrl.getSystemBannerClass()"
-               ng-if="$ctrl.isSystemBannerVisible()"
+               *ngIf="isSystemBannerVisible()"
                ng-bind-html="$ctrl.getSystemBannerMessage()">
   </mat-toolbar>
 
-  <div fxLayout="row"
-       fxFlex="auto"
+  <div fxFlex="auto"
+       fxLayout="row"
        class="kd-app-entire-content">
     <!--<kd-nav flex="none"></kd-nav>-->
     <div fxFlex="auto"
          class="kd-main-content-box">
-      <div ng-switch="$ctrl.loading"
+      <div [ngSwitch]="loading"
            class="kd-content-div-filled kd-main-content-div">
-        <div ng-switch-when="true"
+        <div *ngSwitchCase="true"
              class="kd-spinner">
           <mat-spinner *ngIf="showLoadingSpinner"
                        mode="indeterminate"
                        [diameter]="48">
           </mat-spinner>
         </div>
-        <div ng-switch-when="false"
+        <div *ngSwitchCase="false"
              class="kd-app-content">
-          <div ui-view
-               class="mat-body-1"
-               ng-class="{'kd-content-div-filled': $ctrl.isFillContentView()}"></div>
+          <ui-view class="md-body-1"
+                   ng-class="{'kd-content-div-filled': $ctrl.isFillContentView()}">
+          </ui-view>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<router-outlet></router-outlet>

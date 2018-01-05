@@ -13,4 +13,36 @@
 // limitations under the License.
 
 @import './variables';
+@import './mixins';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+// TODO: Remove that
+@import './common/components/actionbar/actionbar';
+
+// Globally applied/used styles should go here.
+
+.kd-no-margin {
+  margin: 0;
+}
+
+.kd-card-footer {
+  padding: 0 3 * $baseline-grid 3 * $baseline-grid;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+a {
+  color: $primary;
+  text-decoration: inherit;
+}
+
+.mat-button {
+  text-transform: uppercase;
+}
+
+.mat-card {
+  margin: (2.5 * $baseline-grid) (2.5 * $baseline-grid) 0;
+}

@@ -1,0 +1,7 @@
+@import '../../../variables';
+
+.kd-actionbar-button {
+  &.mat-button {
+    padding: 0 $baseline-grid;
+  }
+}

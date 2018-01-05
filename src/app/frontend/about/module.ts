@@ -1,17 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AboutComponent } from './component';
+import {CommonModule} from '@angular/common';
 import {MatCardModule, MatGridListModule, MatIconModule} from "@angular/material";
+import {NgModule} from '@angular/core';
+import {UIRouterModule} from "@uirouter/angular";
+
+import {AboutComponent} from './component';
+import {aboutState} from "./state";
 import {ServicesModule} from "../common/services/module";
 
 @NgModule({
   imports: [
     CommonModule,
     MatCardModule,
+    MatGridListModule,
     MatIconModule,
     ServicesModule,
-    MatGridListModule,
+    UIRouterModule.forChild({states: [aboutState]}),
   ],
-  declarations: [AboutComponent]
+  declarations: [AboutComponent],
 })
-export class AboutModule { }
+export class AboutModule {
+}

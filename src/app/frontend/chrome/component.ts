@@ -7,10 +7,15 @@ import {AssetsService} from "../common/services/assets";
   styleUrls: ['./style.scss']
 })
 export class ChromeComponent {
+  loading: boolean = false;
 
   constructor(@Inject(AssetsService) public assets: AssetsService) {}
 
   public getOverviewStateName() {
     return 'someName';
+  }
+
+  isSystemBannerVisible() {
+    return false;
   }
 }

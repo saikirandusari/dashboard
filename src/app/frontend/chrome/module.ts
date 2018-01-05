@@ -1,6 +1,4 @@
 import {ChromeComponent} from './component';
-
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {
   MatButtonModule, MatIconModule, MatIconRegistry, MatProgressSpinnerModule, MatToolbarModule,
@@ -11,32 +9,33 @@ import {HttpClientModule} from "@angular/common/http";
 import {PipesModule} from "../common/pipes/module";
 import {ServicesModule} from "../common/services/module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {RoutingModule} from "../common/routing/module";
-import {APP_BASE_HREF} from '@angular/common';
+import {chromeState} from "./state";
+import {UIRouterModule} from "@uirouter/angular";
 
 @NgModule({
   declarations: [
     ChromeComponent
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
     FlexLayoutModule,
     HttpClientModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatTooltipModule,
     PipesModule,
     ServicesModule,
-    RoutingModule,
+    UIRouterModule.forRoot({
+      states: [chromeState],
+      useHash: true,
+      otherwise: { state: 'about'},
+    }),
   ],
   providers: [
     MatIconRegistry,
-    {provide: APP_BASE_HREF, useValue: '/'}
   ],
-  bootstrap: [ChromeComponent]
 })
 export class ChromeModule {
 }

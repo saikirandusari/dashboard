@@ -6,11 +6,7 @@ import {AssetsService} from "../common/services/assets";
   templateUrl: './template.html',
   styleUrls: ['./style.scss']
 })
-export class AboutComponent implements OnInit {
-
+export class AboutComponent {
+  latestCopyrightYear = '2017';
   constructor(@Inject(AssetsService) public assets: AssetsService) {}
-
-  ngOnInit() {
-  }
-
 }

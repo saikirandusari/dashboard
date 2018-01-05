@@ -79,11 +79,3 @@ $logo-width: 8 * $baseline-grid;
 $logo-height: 8 * $baseline-grid;
 $table-cell-height: 6 * $baseline-grid;
 $table-cell-height-half: $table-cell-height / 2;
-
-.kd-no-margin {
-  margin: 0;
-}
-
-.kd-card-footer {
-  padding: 0 3 * $baseline-grid 3 * $baseline-grid;
-}
