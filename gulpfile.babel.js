@@ -18,15 +18,11 @@
  *
  * Learn more at: http://gulpjs.com
  */
-// import './build/check';
-// import './build/ci';
+import './build/check';
+import './build/ci';
 import './build/backend';
 // import './build/build';
 import './build/dependencies';
 // import './build/deploy';
-// import './build/index';
-// import './build/script';
 import './build/serve';
-// import './build/style';
 // import './build/test';
-// import './build/i18n';

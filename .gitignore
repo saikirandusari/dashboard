@@ -19,3 +19,6 @@ coverage/
 *.iml
 # Vi
 *.swp
+
+## Npm debug log
+npm-debug.log

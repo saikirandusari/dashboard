@@ -1,6 +1,6 @@
 import {AngularCompilerPlugin} from '@ngtools/webpack'
-import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import path from 'path';
 
 const postcssUrl = require('postcss-url');
 const autoprefixer = require('autoprefixer');
@@ -8,8 +8,8 @@ const cssnano = require('cssnano');
 const customProperties = require('postcss-custom-properties');
 
 const projectRoot = path.resolve(__dirname, '../');
-const deployUrl = "";
-const baseHref = "";
+const deployUrl = '';
+const baseHref = '';
 const minimizeCss = false;
 
 const postcssPlugins = () => {
@@ -34,13 +34,10 @@ const postcssPlugins = () => {
           if (deployUrl.match(/:\/\//) || deployUrl.startsWith('/')) {
             // If deployUrl is absolute or root relative, ignore baseHref & use deployUrl as is.
             return `${deployUrl.replace(/\/$/, '')}${url}`;
-          }
-          else if (baseHref.match(/:\/\//)) {
+          } else if (baseHref.match(/:\/\//)) {
             // If baseHref contains a scheme, include it as is.
-            return baseHref.replace(/\/$/, '') +
-              `/${deployUrl}/${url}`.replace(/\/\/+/g, '/');
-          }
-          else {
+            return baseHref.replace(/\/$/, '') + `/${deployUrl}/${url}`.replace(/\/\/+/g, '/');
+          } else {
             // Join together base-href, deploy-url and the original URL.
             // Also dedupe multiple slashes into single ones.
             return `/${baseHref}/${deployUrl}/${url}`.replace(/\/\/+/g, '/');
@@ -55,8 +52,7 @@ const postcssPlugins = () => {
         maxSize: 10
       }
     ]),
-    autoprefixer(),
-    customProperties({preserve: true})
+    autoprefixer(), customProperties({preserve: true})
   ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
 };
 
@@ -71,9 +67,9 @@ module.exports = {
       path.resolve(__dirname, '../src/app/frontend/polyfills.ts'),
     ],
     'styles': [
-      "../node_modules/material-design-icons/iconfont/material-icons.css",
-      "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
-      "../src/app/frontend/styles.scss"
+      '../node_modules/material-design-icons/iconfont/material-icons.css',
+      '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css',
+      '../src/app/frontend/styles.scss'
     ],
   },
 
@@ -92,149 +88,96 @@ module.exports = {
   module: {
     rules: [
       {
-        "exclude": [
-          path.join(process.cwd(), "../node_modules/material-design-icons/iconfont/material-icons.css"),
-          path.join(process.cwd(), "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css"),
-          path.join(process.cwd(), "../src/app/frontend/styles.scss")
+        'exclude': [
+          path.join(
+              process.cwd(), '../node_modules/material-design-icons/iconfont/material-icons.css'),
+          path.join(
+              process.cwd(), '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css'),
+          path.join(process.cwd(), '../src/app/frontend/styles.scss')
         ],
-        "test": /\.css$/,
-        "use": [
-          "exports-loader?module.exports.toString()",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
-            }
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins,
-              "sourceMap": false
-            }
+        'test': /\.css$/,
+        'use': [
+          'exports-loader?module.exports.toString()',
+          {'loader': 'css-loader', 'options': {'sourceMap': false, 'importLoaders': 1}}, {
+            'loader': 'postcss-loader',
+            'options': {'ident': 'postcss', 'plugins': postcssPlugins, 'sourceMap': false}
           }
         ]
       },
       {
-        "include": [
-          path.join(process.cwd(), "../node_modules/material-design-icons/iconfont/material-icons.css"),
-          path.join(process.cwd(), "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css"),
-          path.join(process.cwd(), "../src/app/frontend/styles.scss")
+        'include': [
+          path.join(
+              process.cwd(), '../node_modules/material-design-icons/iconfont/material-icons.css'),
+          path.join(
+              process.cwd(), '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css'),
+          path.join(process.cwd(), '../src/app/frontend/styles.scss')
         ],
-        "test": /\.css$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
-            }
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins,
-              "sourceMap": false
-            }
+        'test': /\.css$/,
+        'use': [
+          'style-loader',
+          {'loader': 'css-loader', 'options': {'sourceMap': false, 'importLoaders': 1}}, {
+            'loader': 'postcss-loader',
+            'options': {'ident': 'postcss', 'plugins': postcssPlugins, 'sourceMap': false}
           }
         ]
       },
       {
-        "exclude": [
-          path.join(process.cwd(), "../node_modules/material-design-icons/iconfont/material-icons.css"),
-          path.join(process.cwd(), "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css"),
-          path.join(process.cwd(), "../src/app/frontend/styles.scss")
+        'exclude': [
+          path.join(
+              process.cwd(), '../node_modules/material-design-icons/iconfont/material-icons.css'),
+          path.join(
+              process.cwd(), '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css'),
+          path.join(process.cwd(), '../src/app/frontend/styles.scss')
         ],
-        "test": /\.scss$|\.sass$/,
-        "use": [
-          "exports-loader?module.exports.toString()",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
-            }
+        'test': /\.scss$|\.sass$/,
+        'use': [
+          'exports-loader?module.exports.toString()',
+          {'loader': 'css-loader', 'options': {'sourceMap': false, 'importLoaders': 1}}, {
+            'loader': 'postcss-loader',
+            'options': {'ident': 'postcss', 'plugins': postcssPlugins, 'sourceMap': false}
           },
           {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins,
-              "sourceMap": false
-            }
-          },
-          {
-            "loader": "sass-loader",
-            "options": {
-              "sourceMap": false,
-              "precision": 8,
-              "includePaths": []
-            }
+            'loader': 'sass-loader',
+            'options': {'sourceMap': false, 'precision': 8, 'includePaths': []}
           }
         ]
       },
       {
-        "include": [
-          path.join(process.cwd(), "../node_modules/material-design-icons/iconfont/material-icons.css"),
-          path.join(process.cwd(), "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css"),
-          path.join(process.cwd(), "../src/app/frontend/styles.scss")
+        'include': [
+          path.join(
+              process.cwd(), '../node_modules/material-design-icons/iconfont/material-icons.css'),
+          path.join(
+              process.cwd(), '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css'),
+          path.join(process.cwd(), '../src/app/frontend/styles.scss')
         ],
-        "test": /\.scss$|\.sass$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
-            }
+        'test': /\.scss$|\.sass$/,
+        'use': [
+          'style-loader',
+          {'loader': 'css-loader', 'options': {'sourceMap': false, 'importLoaders': 1}}, {
+            'loader': 'postcss-loader',
+            'options': {'ident': 'postcss', 'plugins': postcssPlugins, 'sourceMap': false}
           },
           {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins,
-              "sourceMap": false
-            }
-          },
-          {
-            "loader": "sass-loader",
-            "options": {
-              "sourceMap": false,
-              "precision": 8,
-              "includePaths": []
-            }
+            'loader': 'sass-loader',
+            'options': {'sourceMap': false, 'precision': 8, 'includePaths': []}
           }
         ]
       },
       {
         test: /\.(html)$/,
-        loader: "raw-loader",
+        loader: 'raw-loader',
       },
       {
-        "test": /\.(eot|svg|cur)$/,
-        "loader": "file-loader",
-        "options": {
-          "name": "[name].[hash:20].[ext]",
-          "limit": 10000
-        }
+        'test': /\.(eot|svg|cur)$/,
+        'loader': 'file-loader',
+        'options': {'name': '[name].[hash:20].[ext]', 'limit': 10000}
       },
       {
-        "test": /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
-        "loader": "url-loader",
-        "options": {
-          "name": "[name].[hash:20].[ext]",
-          "limit": 10000
-        }
+        'test': /\.(jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
+        'loader': 'url-loader',
+        'options': {'name': '[name].[hash:20].[ext]', 'limit': 10000}
       },
-      {
-        test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-        use: ['@ngtools/webpack']
-      }
+      {test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/, use: ['@ngtools/webpack']}
     ]
   },
 

@@ -79,7 +79,7 @@ export default {
    * the expression of recording version info into src/app/backend/client/manager.go
    */
   recordVersionExpression:
-    `-X github.com/kubernetes/dashboard/src/app/backend/client.Version=${version.release}`,
+      `-X github.com/kubernetes/dashboard/src/app/backend/client.Version=${version.release}`,
 
   /**
    * Configuration for container registry to push images to.
@@ -113,10 +113,10 @@ export default {
      * Names of all backend packages prefixed with 'test' command.
      */
     testCommandArgs:
-      [
-        'test',
-        'github.com/kubernetes/dashboard/src/app/backend/...',
-      ],
+        [
+          'test',
+          'github.com/kubernetes/dashboard/src/app/backend/...',
+        ],
     /**
      * Insecure port number of the backend server. Only used during development.
      */
@@ -132,16 +132,14 @@ export default {
     /**
      * Env variable with path to kubeconfig file.
      */
-    kubeconfig: gulpUtil.env.kubeconfig !== undefined ?
-      gulpUtil.env.kubeconfig :
-      '',
+    kubeconfig: gulpUtil.env.kubeconfig !== undefined ? gulpUtil.env.kubeconfig : '',
     /**
      * Address for the Heapster API server. If blank, the dashboard
      * will attempt to connect to Heapster via a service proxy.
      */
     heapsterServerHost: gulpUtil.env.heapsterServerHost !== undefined ?
-      gulpUtil.env.heapsterServerHost :
-      '',
+        gulpUtil.env.heapsterServerHost :
+        '',
     /**
      * File containing the default x509 Certificate for HTTPS.
      */
@@ -156,8 +154,8 @@ export default {
      * '--auto-generate-certificates' flag.
      */
     autoGenerateCerts: gulpUtil.env.autoGenerateCerts !== undefined ?
-      gulpUtil.env.autoGenerateCerts :
-      'false',
+        gulpUtil.env.autoGenerateCerts :
+        'false',
     /**
      * Directory path containing certificate files. Matches dashboard '--default-cert-dir' flag.
      */
@@ -170,8 +168,8 @@ export default {
      * System banner severity. Matches dashboard '--system-banner-severity' flag.
      */
     systemBannerSeverity: gulpUtil.env.systemBannerSeverity !== undefined ?
-      gulpUtil.env.systemBannerSeverity :
-      '',
+        gulpUtil.env.systemBannerSeverity :
+        '',
   },
 
   /**
@@ -202,19 +200,19 @@ export default {
      * Image name for the versioned release for current architecture.
      */
     releaseImageName:
-      `${containerRegistry.release}/${imageNameBase}-${arch.default}:${version.release}`,
+        `${containerRegistry.release}/${imageNameBase}-${arch.default}:${version.release}`,
 
     /**
      * Image name for the head release for all supported architecture.
      */
     headImageNames: arch.list.map(
-      (arch) => `${containerRegistry.head}/${imageNameBase}-${arch}:${version.head}`),
+        (arch) => `${containerRegistry.head}/${imageNameBase}-${arch}:${version.head}`),
 
     /**
      * Image name for the versioned release for all supported architecture.
      */
     releaseImageNames: arch.list.map(
-      (arch) => `${containerRegistry.release}/${imageNameBase}-${arch}:${version.release}`),
+        (arch) => `${containerRegistry.release}/${imageNameBase}-${arch}:${version.release}`),
   },
 
   /**
@@ -262,9 +260,9 @@ export default {
     backendSrc: path.join(basePath, 'src/app/backend'),
     backendTmp: path.join(basePath, '.tmp/backend'),
     backendTmpSrc: path.join(
-      basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/src/app/backend'),
+        basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/src/app/backend'),
     backendTmpSrcVendor: path.join(
-      basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/vendor'),
+        basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/vendor'),
     backendVendor: path.join(basePath, 'vendor'),
     build: path.join(basePath, 'build'),
     coverage: path.join(basePath, 'coverage'),

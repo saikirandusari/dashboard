@@ -6,6 +6,20 @@
     "url": "https://github.com/kubernetes/dashboard.git"
   },
   "license": "Apache-2.0",
+  "scripts": {
+    "postinstall": "webdriver-manager update",
+    "build": "ng build --aot --prod",
+    "start": "concurrently \"npm run serve:backend\" \"npm run serve:frontend\"",
+    "serve:backend": "gulp serve --kubeconfig $HOME/.kube/config",
+    "serve:frontend": "ng serve --aot --proxy-config build/proxy.conf.json",
+    "format": "npm run format-ts && npm run format-build && gulp format",
+    "format-ts": "clang-format -i src/app/frontend/**/*.ts",
+    "format-build": "clang-format -i build/**/*.js",
+    "lint": "npm run lint-javascript && gulp lint",
+    "lint-javascript": "tslint -c tslint.json --project . -t codeFrame",
+    "test": "ng test",
+    "e2e": "protractor ./protractor.conf.js"
+  },
   "dependencies": {
     "@angular/animations": "^5.1.3",
     "@angular/cdk": "^5.0.3",
@@ -37,14 +51,21 @@
     "babel": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
-    "clang-format": "~1.2.2",
+    "clang-format": "1.1.0",
     "codelyzer": "~4.0.2",
     "concurrently": "~3.5.1",
     "del": "^3.0.0",
     "google-closure-compiler": "~20171023.0.1",
     "gulp": "^3.9.1",
+    "gulp-clang-format": "1.0.23",
+    "gulp-codecov.io": "^1.0.1-p1",
+    "gulp-filter": "^5.1.0",
+    "gulp-header-license": "^1.0.9",
+    "gulp-license-check": "^1.2.1",
+    "gulp-sass-lint": "^1.3.4",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
+    "js-beautify": "^1.7.5",
     "karma": "~2.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-cli": "~1.0.1",
@@ -69,14 +90,5 @@
   "engines": {
     "node": ">=8.0.0",
     "npm": ">=5.0.0"
-  },
-  "scripts": {
-    "postinstall": "webdriver-manager update",
-    "build": "ng build --aot --prod",
-    "start": "concurrently \"npm run serve:backend\" \"npm run serve:frontend\"",
-    "serve:backend": "gulp serve --kubeconfig $HOME/.kube/config",
-    "serve:frontend": "ng serve --aot --proxy-config build/proxy.conf.json",
-    "test": "ng test",
-    "e2e": "protractor ./protractor.conf.js"
   }
 }

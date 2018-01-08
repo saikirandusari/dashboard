@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {Pipe, PipeTransform} from "@angular/core";
+import {Pipe, PipeTransform} from '@angular/core';
 
 /**
- * Formats cores usage in millicores to a decimal prefix format, e.g., e.g., 321,20 kCPU.
+ * Formats cores usage in millicores to a decimal prefix format, e.g., e.g.,
+ * 321,20 kCPU.
  */
 @Pipe({name: 'coreFormatter'})
 export class CoreFormatter implements PipeTransform {

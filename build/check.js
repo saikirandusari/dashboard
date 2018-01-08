@@ -12,18 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 /**
  * @fileoverview Gulp tasks for checking and validating the code or a commit.
  */
 import fs from 'fs';
 import gulp from 'gulp';
 import gulpClangFormat from 'gulp-clang-format';
-import gulpEslint from 'gulp-eslint';
 import filter from 'gulp-filter';
 import license from 'gulp-header-license';
 import licenseCheck from 'gulp-license-check';
 import gulpSassLint from 'gulp-sass-lint';
+import gulpTslint from 'gulp-tslint';
 import beautify from 'js-beautify';
 import path from 'path';
 import through from 'through2';
@@ -74,22 +73,7 @@ gulp.task('check:code-quality', ['lint', 'test']);
  * Lints all projects code files.
  * // TODO(bryk): Also lint Go files here.
  */
-gulp.task('lint', ['lint-javascript', 'check-javascript-format', 'lint-styles']);
-
-/**
- * Lints all projects JavaScript files using ESLint. This includes frontend source code, as well as,
- * build scripts.
- */
-gulp.task('lint-javascript', function() {
-  return gulp
-      .src([path.join(conf.paths.src, '**/*.js'), path.join(conf.paths.build, '**/*.js')])
-      // Attach lint output to the eslint property of the file.
-      .pipe(gulpEslint())
-      // Output the lint results to the console.
-      .pipe(gulpEslint.format())
-      // Exit with an error code (1) on a lint error.
-      .pipe(gulpEslint.failOnError());
-});
+gulp.task('lint', ['lint-styles']);
 
 /**
  * Lints all SASS files in the project.
@@ -102,29 +86,9 @@ gulp.task('lint-styles', function() {
 });
 
 /**
- * Checks whether project's JavaScript files are formatted according to clang-format style.
+ * Formats all project files. Includes TS, HTML and Go files.
  */
-gulp.task('check-javascript-format', function() {
-  return gulp.src([path.join(conf.paths.src, '**/*.js'), path.join(conf.paths.build, '**/*.js')])
-      .pipe(gulpClangFormat.checkFormat('file', undefined, {verbose: true, fail: true}));
-});
-
-/**
- * Formats all project files. Includes JS, HTML and Go files.
- */
-gulp.task('format', ['format-javascript', 'format-html', 'format-go']);
-
-/**
- * Formats all project's JavaScript files using clang-format.
- */
-gulp.task('format-javascript', function() {
-  return gulp
-      .src(
-          [path.join(conf.paths.src, '**/*.js'), path.join(conf.paths.build, '**/*.js')],
-          {base: conf.paths.base})
-      .pipe(gulpClangFormat.format('file'))
-      .pipe(gulp.dest(conf.paths.base));
-});
+gulp.task('format', ['format-html', 'format-go']);
 
 /**
  * Formats all project's HTML files using js-beautify.
@@ -157,7 +121,7 @@ gulp.task('format-go', function(doneFn) {
  */
 gulp.task('check-license-headers', () => {
   const HEADER_NOT_PRESENT = 'Header not present';
-  const commonFilter = filter(getLicenseFileFilter('js', 'go', 'scss'), {restore: true});
+  const commonFilter = filter(getLicenseFileFilter('ts', 'go', 'scss'), {restore: true});
   const htmlFilter = filter(getLicenseFileFilter('html'), {restore: true});
 
   let hasErrors = false;
@@ -175,7 +139,7 @@ gulp.task('check-license-headers', () => {
 
   return gulp
       .src(
-          [path.join(conf.paths.src, getLicenseFileFilter('js', 'go', 'scss', 'html'))],
+          [path.join(conf.paths.src, getLicenseFileFilter('ts', 'go', 'scss', 'html'))],
           {base: conf.paths.base})
       .pipe(commonFilter)
       .pipe(
@@ -206,12 +170,12 @@ function licenseConfig(licenseFilePath) {
  * Updates license headers in all source files based on templates stored in 'license' directory.
  */
 gulp.task('update-license-headers', () => {
-  const commonFilter = filter(getLicenseFileFilter('js', 'go', 'scss'), {restore: true});
+  const commonFilter = filter(getLicenseFileFilter('ts', 'go', 'scss'), {restore: true});
   const htmlFilter = filter(getLicenseFileFilter('html'), {restore: true});
   const matchRate = 0.9;
 
   gulp.src(
-          [path.join(conf.paths.src, getLicenseFileFilter('js', 'go', 'scss', 'html'))],
+          [path.join(conf.paths.src, getLicenseFileFilter('ts', 'go', 'scss', 'html'))],
           {base: conf.paths.base})
       .pipe(commonFilter)
       .pipe(license(fs.readFileSync('build/assets/license/header.txt', 'utf8'), {}, matchRate))

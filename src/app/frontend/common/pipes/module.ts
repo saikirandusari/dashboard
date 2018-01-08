@@ -13,14 +13,14 @@
 // limitations under the License.
 
 import {NgModule} from '@angular/core';
-import {BrowserModule} from "@angular/platform-browser";
+import {BrowserModule} from '@angular/platform-browser';
 
-import {MemoryFormatter} from "./memoryformatter";
-import {CoreFormatter} from "./coreformatter";
+import {CoreFormatter} from './coreformatter';
+import {MemoryFormatter} from './memoryformatter';
 
 @NgModule({
-    imports: [BrowserModule],
-    declarations: [MemoryFormatter, CoreFormatter],
-    exports: [MemoryFormatter, CoreFormatter],
+  imports: [BrowserModule],
+  declarations: [MemoryFormatter, CoreFormatter],
+  exports: [MemoryFormatter, CoreFormatter],
 })
 export class PipesModule {}

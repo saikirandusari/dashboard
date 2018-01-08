@@ -11,12 +11,3 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-import {Component, Inject, OnInit} from '@angular/core';
-import {AssetsService} from '../common/services/assets';
-
-@Component({selector: 'kd-about', templateUrl: './template.html', styleUrls: ['./style.scss']})
-export class AboutComponent {
-  latestCopyrightYear = '2018';
-  constructor(@Inject(AssetsService) public assets: AssetsService) {}
-}

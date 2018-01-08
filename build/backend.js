@@ -24,7 +24,6 @@ import path from 'path';
 import conf from './conf';
 import goCommand from './gocommand';
 
-
 /**
  * Compiles backend application in development mode and places the binary in the serve
  * directory.
