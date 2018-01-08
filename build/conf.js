@@ -19,11 +19,6 @@ import gulpUtil from 'gulp-util';
 import path from 'path';
 
 /**
- * Load the i18n and l10n configuration. Used when dashboard is built in production.
- */
-let localization = require('../i18n/locale_conf.json');
-
-/**
  * Base path for all other paths.
  */
 const basePath = path.join(__dirname, '../');
@@ -34,7 +29,6 @@ const basePath = path.join(__dirname, '../');
 const arch = {
   /**
    * Default architecture that the project is compiled to. Used for local development and testing.
-   * TODO(bryk): Dynamically determine this based on current arch.
    */
   default: 'amd64',
   /**
@@ -248,13 +242,6 @@ export default {
   },
 
   /**
-   * Configuration for i18n & l10n.
-   */
-  translations: localization.translations.map((translation) => {
-    return {path: path.join(basePath, 'i18n', translation.file), key: translation.key};
-  }),
-
-  /**
    * Absolute paths to known directories, e.g., to source directory.
    */
   paths: {
@@ -302,6 +289,5 @@ export default {
     serve: path.join(basePath, '.tmp/serve'),
     src: path.join(basePath, 'src'),
     tmp: path.join(basePath, '.tmp'),
-    xtbgenerator: path.join(basePath, '.tools/xtbgenerator/bin/XtbGenerator.jar'),
   },
 };

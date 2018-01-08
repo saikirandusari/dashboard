@@ -4,21 +4,18 @@ import {DomSanitizer} from "@angular/platform-browser";
 
 @Injectable()
 export class AssetsService {
-  private assetsPath = 'assets/images';
-  private appLogoSvg = 'kubernetes-logo.svg';
-  private appLogoTextSvg = 'kubernetes-logo-text.svg';
-
-  private appLogoIcon = 'kd-logo';
-  private appLogoTextIcon = 'kd-logo-text';
+  private readonly assetsPath = 'assets/images';
+  private readonly appLogoSvg = 'kubernetes-logo.svg';
+  private readonly appLogoTextSvg = 'kubernetes-logo-text.svg';
+  private readonly appLogoIcon = 'kd-logo';
+  private readonly appLogoTextIcon = 'kd-logo-text';
 
   constructor(@Inject(MatIconRegistry) iconRegistry: MatIconRegistry,
               @Inject(DomSanitizer) sanitizer: DomSanitizer) {
-    // Register icons
     iconRegistry.addSvgIcon(this.appLogoIcon,
       sanitizer.bypassSecurityTrustResourceUrl(`${this.assetsPath}/${this.appLogoSvg}`));
-
     iconRegistry.addSvgIcon(this.appLogoTextIcon,
-      sanitizer.bypassSecurityTrustResourceUrl(`${this.assetsPath}/${this.appLogoTextSvg}`))
+      sanitizer.bypassSecurityTrustResourceUrl(`${this.assetsPath}/${this.appLogoTextSvg}`));
   }
 
   public getAppLogo() {
