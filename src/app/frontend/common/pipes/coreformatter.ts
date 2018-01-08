@@ -15,14 +15,16 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
 /**
- * Formats memory in bytes to a binary prefix format, e.g., 789,21 MiB.
+ * Formats cores usage in millicores to a decimal prefix format, e.g., e.g., 321,20 kCPU.
  */
-@Pipe({name: 'memoryFormatter'})
-export class MemoryFormatter implements PipeTransform {
-  readonly base = 1024;
-  readonly powerSuffixes = ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi'];
+@Pipe({name: 'coreFormatter'})
+export class CoreFormatter implements PipeTransform {
+  readonly base = 1000;
+  readonly powerSuffixes = ['', 'k', 'M', 'G', 'T'];
 
   transform(value: number) {
+    value = value / 1000;
+
     let divider = 1;
     let power = 0;
 
@@ -30,7 +32,6 @@ export class MemoryFormatter implements PipeTransform {
       divider *= this.base;
       power += 1;
     }
-
     let formatted = Math.round(value / divider);
     let suffix = this.powerSuffixes[power];
     return suffix ? `${formatted} ${suffix}` : formatted;
