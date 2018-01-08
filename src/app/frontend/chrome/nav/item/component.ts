@@ -9,4 +9,8 @@ export class NavItemComponent {
   public getHref() {
     return 'test';
   }
+
+  isActive() {
+    return false;
+  }
 }

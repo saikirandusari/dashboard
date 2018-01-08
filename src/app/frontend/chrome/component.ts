@@ -18,4 +18,8 @@ export class ChromeComponent {
   isSystemBannerVisible() {
     return false;
   }
+
+  create() {
+
+  }
 }

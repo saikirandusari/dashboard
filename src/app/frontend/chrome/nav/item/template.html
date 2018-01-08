@@ -1,5 +1,5 @@
 <a mat-button
    class="kd-nav-item-button"
-   ng-class="{'kd-nav-item-active': $ctrl.isActive()}">
+   [ngClass]="{'kd-nav-item-active': isActive()}">
   <ng-content></ng-content>
 </a>

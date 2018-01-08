@@ -21,7 +21,7 @@ import path from 'path';
 /**
  * Load the i18n and l10n configuration. Used when dashboard is built in production.
  */
-let localization = require('../i18n/locale_conf.json');
+let localization = require('../i18n_old/locale_conf.json');
 
 /**
  * Base path for all other paths.
