@@ -1,25 +1,34 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AssetsService} from "../common/services/assets";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'kd-chrome',
   templateUrl: './template.html',
   styleUrls: ['./style.scss']
 })
-export class ChromeComponent {
+export class ChromeComponent implements OnInit {
   loading: boolean = false;
 
-  constructor(@Inject(AssetsService) public assets: AssetsService) {}
+  constructor(@Inject(AssetsService) public assets: AssetsService,
+              private http_: HttpClient) {}
 
   public getOverviewStateName() {
     return 'someName';
   }
 
-  isSystemBannerVisible() {
+  public isSystemBannerVisible() {
     return false;
   }
 
-  create() {
+  public create() {
 
+  }
+
+  public ngOnInit() {
+    this.http_.get('api/v1/node').subscribe(
+      data => console.log(data),
+      err => console.error(err)
+    )
   }
 }

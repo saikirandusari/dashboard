@@ -34,6 +34,7 @@ const basePath = path.join(__dirname, '../');
 const arch = {
   /**
    * Default architecture that the project is compiled to. Used for local development and testing.
+   * TODO(bryk): Dynamically determine this based on current arch.
    */
   default: 'amd64',
   /**
@@ -78,7 +79,7 @@ export default {
    * the expression of recording version info into src/app/backend/client/manager.go
    */
   recordVersionExpression:
-      `-X github.com/kubernetes/dashboard/src/app/backend/client.Version=${version.release}`,
+    `-X github.com/kubernetes/dashboard/src/app/backend/client.Version=${version.release}`,
 
   /**
    * Configuration for container registry to push images to.
@@ -112,14 +113,14 @@ export default {
      * Names of all backend packages prefixed with 'test' command.
      */
     testCommandArgs:
-        [
-          'test',
-          'github.com/kubernetes/dashboard/src/app/backend/...',
-        ],
+      [
+        'test',
+        'github.com/kubernetes/dashboard/src/app/backend/...',
+      ],
     /**
      * Insecure port number of the backend server. Only used during development.
      */
-    devServerPort: 9091,
+    devServerPort: 9090,
     /**
      * Secure port number of the backend server. Only used during development.
      */
@@ -129,20 +130,18 @@ export default {
      */
     apiServerHost: 'http://localhost:8080',
     /**
-     * Env variable with address for the Kubernetes API server.
-     */
-    envApiServerHost: process.env.KUBE_DASHBOARD_APISERVER_HOST,
-    /**
      * Env variable with path to kubeconfig file.
      */
-    envKubeconfig: process.env.KUBE_DASHBOARD_KUBECONFIG,
+    kubeconfig: gulpUtil.env.kubeconfig !== undefined ?
+      gulpUtil.env.kubeconfig :
+      '',
     /**
      * Address for the Heapster API server. If blank, the dashboard
      * will attempt to connect to Heapster via a service proxy.
      */
     heapsterServerHost: gulpUtil.env.heapsterServerHost !== undefined ?
-        gulpUtil.env.heapsterServerHost :
-        '',
+      gulpUtil.env.heapsterServerHost :
+      '',
     /**
      * File containing the default x509 Certificate for HTTPS.
      */
@@ -157,8 +156,8 @@ export default {
      * '--auto-generate-certificates' flag.
      */
     autoGenerateCerts: gulpUtil.env.autoGenerateCerts !== undefined ?
-        gulpUtil.env.autoGenerateCerts :
-        'false',
+      gulpUtil.env.autoGenerateCerts :
+      'false',
     /**
      * Directory path containing certificate files. Matches dashboard '--default-cert-dir' flag.
      */
@@ -171,8 +170,8 @@ export default {
      * System banner severity. Matches dashboard '--system-banner-severity' flag.
      */
     systemBannerSeverity: gulpUtil.env.systemBannerSeverity !== undefined ?
-        gulpUtil.env.systemBannerSeverity :
-        '',
+      gulpUtil.env.systemBannerSeverity :
+      '',
   },
 
   /**
@@ -203,19 +202,19 @@ export default {
      * Image name for the versioned release for current architecture.
      */
     releaseImageName:
-        `${containerRegistry.release}/${imageNameBase}-${arch.default}:${version.release}`,
+      `${containerRegistry.release}/${imageNameBase}-${arch.default}:${version.release}`,
 
     /**
      * Image name for the head release for all supported architecture.
      */
     headImageNames: arch.list.map(
-        (arch) => `${containerRegistry.head}/${imageNameBase}-${arch}:${version.head}`),
+      (arch) => `${containerRegistry.head}/${imageNameBase}-${arch}:${version.head}`),
 
     /**
      * Image name for the versioned release for all supported architecture.
      */
     releaseImageNames: arch.list.map(
-        (arch) => `${containerRegistry.release}/${imageNameBase}-${arch}:${version.release}`),
+      (arch) => `${containerRegistry.release}/${imageNameBase}-${arch}:${version.release}`),
   },
 
   /**
@@ -247,6 +246,13 @@ export default {
   },
 
   /**
+   * Configuration for i18n & l10n.
+   */
+  translations: localization.translations.map((translation) => {
+    return {path: path.join(basePath, 'i18n', translation.file), key: translation.key};
+  }),
+
+  /**
    * Absolute paths to known directories, e.g., to source directory.
    */
   paths: {
@@ -256,9 +262,9 @@ export default {
     backendSrc: path.join(basePath, 'src/app/backend'),
     backendTmp: path.join(basePath, '.tmp/backend'),
     backendTmpSrc: path.join(
-        basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/src/app/backend'),
+      basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/src/app/backend'),
     backendTmpSrcVendor: path.join(
-        basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/vendor'),
+      basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/vendor'),
     backendVendor: path.join(basePath, 'vendor'),
     build: path.join(basePath, 'build'),
     coverage: path.join(basePath, 'coverage'),
@@ -294,5 +300,6 @@ export default {
     serve: path.join(basePath, '.tmp/serve'),
     src: path.join(basePath, 'src'),
     tmp: path.join(basePath, '.tmp'),
+    xtbgenerator: path.join(basePath, '.tools/xtbgenerator/bin/XtbGenerator.jar'),
   },
 };
