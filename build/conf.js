@@ -19,6 +19,11 @@ import gulpUtil from 'gulp-util';
 import path from 'path';
 
 /**
+ * Load the i18n and l10n configuration. Used when dashboard is built in production.
+ */
+let localization = require('../i18n_old/locale_conf.json');
+
+/**
  * Base path for all other paths.
  */
 const basePath = path.join(__dirname, '../');
