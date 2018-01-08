@@ -57,7 +57,6 @@
     "del": "^3.0.0",
     "google-closure-compiler": "~20171023.0.1",
     "gulp": "^3.9.1",
-    "gulp-clang-format": "1.0.23",
     "gulp-codecov.io": "^1.0.1-p1",
     "gulp-filter": "^5.1.0",
     "gulp-header-license": "^1.0.9",
