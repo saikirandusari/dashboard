@@ -11,12 +11,14 @@
     "start-frontend": "ng serve --aot --proxy-config build/proxy.conf.json",
     "start-backend": "gulp serve --kubeconfig $HOME/.kube/config",
     "format": "concurrently \"npm run format-frontend\" \"npm run format-backend\"",
-    "format-frontend": "clang-format -i src/app/frontend/**/*.ts build/**/*.js",
-    "format-backend": "gulp format",
+    "format-frontend": "clang-format -i src/app/frontend/**/*.ts build/**/*.js && gulp format-html",
+    "format-backend": "goimports -w src/app/backend",
     "lint": "npm run lint-frontend && npm run lint-backend",
     "lint-frontend": "tslint -c tslint.json --project . -t codeFrame",
     "lint-backend": "gulp lint",
-    "postinstall": "webdriver-manager update",
+    "coverage-backend": "./build/coverage-backend.sh coverage/go.txt",
+
+    "postinstall": "webdriver-manager update && go get golang.org/x/tools/cmd/goimports",
     "build": "ng build --aot --prod",
     "test": "ng test",
     "e2e": "protractor ./protractor.conf.js"

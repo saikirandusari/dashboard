@@ -55,20 +55,6 @@ export default function goCommand(args, doneFn, envOverride) {
 }
 
 /**
- * Spawns a goimports process after making sure all Go prerequisites are present.
- *
- * @param {!Array<string>} args - Arguments of the go command.
- * @param {function(?Error=)} doneFn - Callback.
- * @param {!Object<string, string>=} [envOverride] optional environment variables overrides map.
- */
-export function goimportsCommand(args, doneFn, envOverride) {
-  checkPrerequisites()
-      .then(() => spawnGoimportsProcess(args, envOverride))
-      .then(doneFn)
-      .fail((error) => doneFn(error));
-}
-
-/**
  * Checks if all prerequisites for a go-command execution are present.
  * @return {Q.Promise} A promise object.
  */
@@ -179,16 +165,4 @@ function spawnProcess(processName, args, envOverride) {
  */
 function spawnGoProcess(args, envOverride) {
   return spawnProcess('go', args, envOverride);
-}
-
-/**
- * Spawns goimports process.
- * Promises an error if the go command process fails.
- *
- * @param {!Array<string>} args - Arguments of the go command.
- * @param {!Object<string, string>=} [envOverride] optional environment variables overrides map.
- * @return {Q.Promise} A promise object.
- */
-function spawnGoimportsProcess(args, envOverride) {
-  return spawnProcess('goimports', args, envOverride);
 }

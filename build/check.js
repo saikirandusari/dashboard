@@ -26,7 +26,6 @@ import path from 'path';
 import through from 'through2';
 
 import conf from './conf';
-import {goimportsCommand} from './gocommand';
 
 /** HTML beautifier from js-beautify package */
 const htmlBeautify = beautify.html;
@@ -69,7 +68,6 @@ gulp.task('check:code-quality', ['lint', 'test']);
 
 /**
  * Lints all projects code files.
- * // TODO(bryk): Also lint Go files here.
  */
 gulp.task('lint', ['lint-styles']);
 
@@ -84,11 +82,6 @@ gulp.task('lint-styles', function() {
 });
 
 /**
- * Formats all project files. Includes TS, HTML and Go files.
- */
-gulp.task('format', ['format-html', 'format-go']);
-
-/**
  * Formats all project's HTML files using js-beautify.
  */
 gulp.task('format-html', function() {
@@ -99,18 +92,6 @@ gulp.task('format-html', function() {
         wrap_attributes: 'force-aligned',
       }))
       .pipe(gulp.dest(conf.paths.base));
-});
-
-/**
- * Formats all project's Go files using goimports tool.
- */
-gulp.task('format-go', function(doneFn) {
-  goimportsCommand(
-      [
-        '-w',
-        path.relative(conf.paths.base, conf.paths.backendSrc),
-      ],
-      doneFn);
 });
 
 /**

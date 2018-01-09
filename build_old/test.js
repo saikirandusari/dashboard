@@ -87,25 +87,6 @@ gulp.task('backend-test', ['package-backend'], function(doneFn) {
 });
 
 /**
- * Runs once all unit tests of the backend application with coverage report.
- */
-gulp.task('backend-test-with-coverage', ['package-backend'], function(doneFn) {
-  let testProcess = childProcess.execFile(
-      conf.paths.goTestScript, [conf.paths.coverageBackend, conf.backend.mainPackageName]);
-
-  testProcess.stdout.pipe(process.stdout);
-  testProcess.stderr.pipe(process.stderr);
-
-  testProcess.on('close', (code) => {
-    if (code !== 0) {
-      return doneFn(new Error(`Process exited with code: ${code}`));
-    }
-
-    return doneFn();
-  });
-});
-
-/**
  * Runs all unit tests of the application. Watches for changes in the source files to rerun
  * the tests.
  */
