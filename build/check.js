@@ -20,7 +20,6 @@ import gulp from 'gulp';
 import filter from 'gulp-filter';
 import license from 'gulp-header-license';
 import licenseCheck from 'gulp-license-check';
-import gulpSassLint from 'gulp-sass-lint';
 import beautify from 'js-beautify';
 import path from 'path';
 import through from 'through2';
@@ -59,27 +58,6 @@ function getLicenseFileFilter(...ext) {
  * This task should be used prior to publishing a change.
  **/
 gulp.task('check', ['check-license-headers', 'lint', 'test', 'integration-test:prod']);
-
-/**
- * Checks the code quality (frontend + backend tests) of Dashboard. In addition lints the code and
- * checks if it is correctly formatted. This is meant as an entry point for CI jobs.
- */
-gulp.task('check:code-quality', ['lint', 'test']);
-
-/**
- * Lints all projects code files.
- */
-gulp.task('lint', ['lint-styles']);
-
-/**
- * Lints all SASS files in the project.
- */
-gulp.task('lint-styles', function() {
-  return gulp.src(path.join(conf.paths.src, '**/*.scss'))
-      .pipe(gulpSassLint())
-      .pipe(gulpSassLint.format())
-      .pipe(gulpSassLint.failOnError());
-});
 
 /**
  * Formats all project's HTML files using js-beautify.
