@@ -38,6 +38,7 @@ export MINIKUBE_WANTUPDATENOTIFICATION=false
 export MINIKUBE_WANTREPORTERRORPROMPT=false
 export MINIKUBE_HOME=${HOME}
 export CHANGE_MINIKUBE_NONE_USER=true
+sudo -E ${MINIKUBE_BIN} config set WantKubectlDownloadMsg false
 sudo -E ${MINIKUBE_BIN} start --vm-driver=none --kubernetes-version ${MINIKUBE_K8S_VERSION}
 
 echo "Running heapster in standalone mode"
