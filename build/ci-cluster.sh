@@ -16,15 +16,16 @@
 BASE_DIR=.tools/k8s
 HEAPSTER_VERSION="v1.4.0"
 HEAPSTER_PORT=8082
-MINIKUBE_VERSION=v0.22.3
+MINIKUBE_VERSION=v0.24.1
 MINIKUBE_K8S_VERSION=v1.8.0
 MINIKUBE_BIN=${BASE_DIR}/minikube-${MINIKUBE_VERSION}
+ARCH=$(uname | awk '{print tolower($0)}')
 
 echo "Making sure that ${BASE_DIR} directory exists"
 mkdir -p ${BASE_DIR}
 
 echo "Downloading minikube ${MINIKUBE_VERSION} if it is not cached"
-wget -nc -O ${MINIKUBE_BIN} https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-linux-amd64
+wget -nc -O ${MINIKUBE_BIN} https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-${ARCH}-amd64
 chmod +x ${MINIKUBE_BIN}
 ${MINIKUBE_BIN} version
 
@@ -55,4 +56,4 @@ do
 done
 echo "Heapster is up and running"
 
-echo "Kubernetes is ready to use"
+echo "Kubernetes cluster is ready to use"

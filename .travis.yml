@@ -38,7 +38,7 @@ before_script:
 
 script:
   - 'if [ ${BUILD_SUITE} = "integration-test" ]; then
-      ./build/minikube.sh;
+      npm run ci-cluster;
       ./node_modules/.bin/gulp check:ci --heapsterServerHost "http://localhost:8082";
     else
       NODE_ENV=test ./node_modules/.bin/gulp check:code-quality;

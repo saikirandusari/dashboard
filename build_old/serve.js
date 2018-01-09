@@ -15,18 +15,10 @@
 /**
  * @fileoverview Gulp tasks that serve the application.
  */
-import browserSync from 'browser-sync';
-import browserSyncSpa from 'browser-sync-spa';
 import child from 'child_process';
 import gulp from 'gulp';
-import proxyMiddleware from 'http-proxy-middleware';
 import path from 'path';
 import conf from './conf';
-
-/**
- * Browser sync instance that serves the application.
- */
-export const browserSyncInstance = browserSync.create();
 
 /**
  * Currently running backend process object. Null if the backend is not running.
@@ -77,69 +69,6 @@ function getBackendArgs(mode) {
 
   return args;
 }
-
-/**
- * Initializes BrowserSync tool. Files are served from baseDir directory list and all API calls
- * are proxied to a running backend instance.
- *
- * HTTP/HTTPS is served on 9090 when using `gulp serve`.
- *
- * @param {!Array<string>|string} baseDir
- */
-function browserSyncInit(baseDir) {
-  // Enable custom support for Angular apps, e.g., history management.
-  browserSyncInstance.use(browserSyncSpa({
-    selector: '[ng-app]',
-  }));
-
-  let apiRoute = '/api';
-  let proxyMiddlewareOptions = {
-    target: conf.frontend.serveHttps ? `https://localhost:${conf.backend.secureDevServerPort}` :
-                                       `http://localhost:${conf.backend.devServerPort}`,
-    changeOrigin: true,
-    ws: true,  // Proxy websockets.
-    secure: false,
-  };
-
-  let config = {
-    browser: [],       // Needed so that the browser does not auto-launch.
-    directory: false,  // Disable directory listings.
-    server: {
-      baseDir: baseDir,
-      middleware: proxyMiddleware(apiRoute, proxyMiddlewareOptions),
-      routes: {
-        '/node_modules': conf.paths.nodeModules,
-      },
-    },
-    port: conf.frontend.serverPort,
-    https: conf.frontend.serveHttps,  // Will serve only on HTTPS if flag is set.
-    startPath: '/',
-    notify: false,
-  };
-
-  browserSyncInstance.init(config);
-}
-
-/**
- * Serves the application in development mode.
- */
-function serveDevelopmentMode() {
-  browserSyncInit([
-    conf.paths.serve,
-    conf.paths.app,  // For assets to work.
-  ]);
-}
-
-/**
- * Serves the application in development mode. Watches for changes in the source files to rebuild
- * development artifacts.
- */
-gulp.task('serve', ['spawn-backend', 'watch'], serveDevelopmentMode);
-
-/**
- * Serves the application in development mode.
- */
-gulp.task('serve:nowatch', ['spawn-backend', 'index'], serveDevelopmentMode);
 
 /**
  * Serves the application in production mode.

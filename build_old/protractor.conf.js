@@ -12,11 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * @fileoverview Configuration file for Protractor test runner.
- *
- * TODO(bryk): Start using ES6 modules in this file when supported.
- */
+
 /* eslint strict: [0] */
 'use strict';
 require('babel-core/register');
@@ -57,12 +53,6 @@ function createConfig() {
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
         'name': name,
       },
-      // {
-      //    TODO: disable for now until IE compatibility issues are fixed
-      //    'browserName': 'internet explorer',
-      //    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-      //    'name': name,
-      // },
     ];
 
     // Limit concurrency to not exhaust saucelabs resources for the CI user.

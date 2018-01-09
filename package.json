@@ -16,12 +16,17 @@
     "lint": "npm run lint-frontend && npm run lint-backend",
     "lint-frontend": "tslint -c tslint.json --project . -t codeFrame",
     "lint-backend": "gulp lint",
+    "test": "npm run test-frontend && npm run test-backend",
+    "test-frontend": "ng test",
+    "test-backend": "go test github.com/kubernetes/dashboard/src/app/backend/...",
+    "coverage": "concurrently \"npm run coverage-backend\" \"npm run coverage-frontend\"",
+    "coverage-frontend": "",
     "coverage-backend": "./build/coverage-backend.sh coverage/go.txt",
+    "ci-cluster": "./build/ci-cluster.sh",
 
     "postinstall": "webdriver-manager update && go get golang.org/x/tools/cmd/goimports",
     "build": "ng build --aot --prod",
-    "test": "ng test",
-    "e2e": "protractor ./protractor.conf.js"
+    "e2e": "protractor ./build/protractor.conf.js"
   },
   "dependencies": {
     "@angular/animations": "^5.1.3",

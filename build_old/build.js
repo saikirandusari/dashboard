@@ -54,22 +54,6 @@ gulp.task(
     });
 
 /**
- * Builds production versions of the frontend application for all architectures
- * (one copy per locale) and places them under .tmp, preparing them for localization and revision.
- */
-gulp.task(
-    'frontend-copies:cross',
-    [
-      'dependency-images:cross',
-      'index:prod',
-      'clean-dist',
-    ],
-    function() {
-      return createFrontendCopies(
-          conf.arch.list.map((arch) => path.join(conf.paths.distPre, arch, 'public')));
-});
-
-/**
  * Copies images from dependencies to the dist directory for current architecture.
  */
 gulp.task('dependency-images', ['clean-dist'], function() {
@@ -88,13 +72,6 @@ gulp.task('dependency-images:cross', ['clean-dist'], function() {
  */
 gulp.task('clean', ['clean-dist'], function() {
   return del([conf.paths.goWorkspace, conf.paths.tmp, conf.paths.coverage]);
-});
-
-/**
- * Cleans all message for extraction files.
- */
-gulp.task('clean-messages-for-extraction', [], function() {
-  return del([conf.paths.messagesForExtraction]);
 });
 
 /**
