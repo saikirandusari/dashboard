@@ -17,12 +17,10 @@
  */
 import fs from 'fs';
 import gulp from 'gulp';
-import gulpClangFormat from 'gulp-clang-format';
 import filter from 'gulp-filter';
 import license from 'gulp-header-license';
 import licenseCheck from 'gulp-license-check';
 import gulpSassLint from 'gulp-sass-lint';
-import gulpTslint from 'gulp-tslint';
 import beautify from 'js-beautify';
 import path from 'path';
 import through from 'through2';

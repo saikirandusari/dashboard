@@ -22,7 +22,6 @@ import './build/check';
 import './build/ci';
 import './build/backend';
 // import './build/build';
-import './build/dependencies';
 // import './build/deploy';
 import './build/serve';
 // import './build/test';
