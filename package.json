@@ -39,7 +39,6 @@
     "coverage-frontend": "",
     "coverage-backend": "./build/coverage-backend.sh coverage/go.txt",
     "e2e": "protractor ./build/protractor.conf.js",
-    "ci-cluster": "./build/ci-cluster.sh",
     "clean": "rm -rf .go_workspace .tmp coverage dist",
     "postinstall": "webdriver-manager update && ./build/get-go-tools.sh"
   },
@@ -80,7 +79,6 @@
     "del": "^3.0.0",
     "google-closure-compiler": "^20180101.0.0",
     "gulp": "^3.9.1",
-    "gulp-codecov.io": "^1.0.1",
     "gulp-filter": "^5.1.0",
     "gulp-header-license": "^1.0.9",
     "gulp-license-check": "^1.2.1",

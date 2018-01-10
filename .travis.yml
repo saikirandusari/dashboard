@@ -38,7 +38,7 @@ before_script:
 
 script:
   - 'if [ ${BUILD_SUITE} = "integration-test" ]; then
-      npm run ci-cluster;
+      ./build/start-ci-cluster.sh;
       ./node_modules/.bin/gulp check:ci --heapsterServerHost "http://localhost:8082";
     else
       NODE_ENV=test ./node_modules/.bin/gulp check:code-quality;
@@ -48,5 +48,5 @@ after_success:
   - 'if [ ${BUILD_SUITE} = "integration-test" ]; then
       ./node_modules/.bin/gulp push-to-docker:ci;
     else
-      ./node_modules/.bin/gulp coverage-upload:ci;
+      bash <(curl -s https://codecov.io/bash);
     fi'
