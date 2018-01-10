@@ -22,9 +22,7 @@ FRONTEND_ONLY=false
 # ---------- Define functions ---------- #
 
 function clean {
-  # Remove tmp and dist dirs
-  rm -rf ${DIST_DIR}
-  rm -rf ${TMP_DIR}
+  rm -rf ${DIST_DIR} ${TMP_DIR}
 }
 
 function build:frontend {
@@ -74,7 +72,6 @@ function parse:args {
   POSITIONAL=()
   while [[ $# -gt 0 ]]; do
     key="$1"
-
     case ${key} in
       -c|--cross)
       CROSS=true
