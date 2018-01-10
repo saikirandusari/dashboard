@@ -23,7 +23,6 @@ FRONTEND_ONLY=false
 
 function clean {
   rm -rf ${DIST_DIR} ${TMP_DIR}
-  mkdir -p ${DIST_DIR} ${TMP_DIR}
 }
 
 function build:frontend {
