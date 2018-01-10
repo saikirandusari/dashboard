@@ -2,7 +2,6 @@
 // Read more at: https://gulpjs.com/
 
 import './build/check';
-import './build/ci';
 import './build/backend';
 import './build/serve';
 import './build/deploy';
