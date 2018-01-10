@@ -4,8 +4,6 @@
 sudo: required
 dist: trusty
 group: edge
-
-# Use Node.js as primary language because Gulp is the build system used in the project.
 language: node_js
 
 cache:
@@ -33,7 +31,7 @@ matrix:
       - SAUCE_USERNAME=k8s-dashboard-ci
 
 before_script:
-  - eval "$(gimme 1.8.3)"
+  - eval "$(gimme 1.9.2)"
   - docker --version
 
 script:
