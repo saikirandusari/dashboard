@@ -239,6 +239,13 @@ export default {
   },
 
   /**
+   * Configuration for i18n & l10n.
+   */
+  translations: localization.translations.map((translation) => {
+    return {path: path.join(basePath, 'i18n', translation.file), key: translation.key};
+  }),
+
+  /**
    * Absolute paths to known directories, e.g., to source directory.
    */
   paths: {
