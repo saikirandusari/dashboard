@@ -39,7 +39,7 @@
     "coverage-frontend": "",
     "coverage-backend": "./build/coverage-backend.sh coverage/go.txt",
     "e2e": "protractor ./build/protractor.conf.js",
-    "clean": "rm -rf .go_workspace .tmp coverage dist",
+    "clean": "rm -rf .go_workspace .tmp .tools coverage dist",
     "postinstall": "webdriver-manager update && ./build/get-go-tools.sh"
   },
   "dependencies": {

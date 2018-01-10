@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-BASE_DIR=.tools/k8s
+BASE_DIR=.tools/
 HEAPSTER_VERSION="v1.4.0"
 HEAPSTER_PORT=8082
 MINIKUBE_VERSION=v0.24.1
@@ -34,10 +34,10 @@ mkdir -p $HOME/.kube
 touch $HOME/.kube/config
 
 echo "Starting minikube"
-export MINIKUBE_WANTUPDATENOTIFICATION=false
-export MINIKUBE_WANTREPORTERRORPROMPT=false
 export MINIKUBE_HOME=${HOME}
 export CHANGE_MINIKUBE_NONE_USER=true
+sudo -E ${MINIKUBE_BIN} config set WantUpdateNotification false
+sudo -E ${MINIKUBE_BIN} config set WantReportErrorPrompt false
 sudo -E ${MINIKUBE_BIN} config set WantKubectlDownloadMsg false
 sudo -E ${MINIKUBE_BIN} start --vm-driver=none --kubernetes-version ${MINIKUBE_K8S_VERSION}
 
