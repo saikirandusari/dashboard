@@ -20,7 +20,7 @@
     "lint": "npm run lint-frontend && npm run lint-backend",
     "lint-frontend": "npm run lint-ts && npm run lint-sass",
     "lint-ts": "tslint -c tslint.json --project . -t codeFrame",
-    "lint-sass": "./node_modules/sass-lint/bin/sass-lint.js -c ./build/.sass-lint.yml 'src/app/frontend/**/*.scss' -v -q",
+    "lint-sass": "./node_modules/sass-lint/bin/sass-lint.js -c ./build/sass-lint.yml 'src/app/frontend/**/*.scss' -v -q",
     "lint-backend": "golint github.com/kubernetes/dashboard/src/app/backend/...",
     "test": "npm run test-frontend && npm run test-backend",
     "test-frontend": "ng test --browser ChromeHeadless --single-run",
