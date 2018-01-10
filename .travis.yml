@@ -46,7 +46,7 @@ script:
 
 after_success:
   - 'if [ ${BUILD_SUITE} = "integration-test" ]; then
-      ./node_modules/.bin/gulp push-to-docker:ci;
+      npm run docker-push:head:cross;
     else
       bash <(curl -s https://codecov.io/bash);
     fi'

@@ -29,13 +29,7 @@ const defaultDir = "./public/en"
 
 // Localization is a spec for the localization configuration of dashboard.
 type Localization struct {
-	Translations []Translation `json:"translations"`
-}
-
-// Translation is a single translation definition spec.
-type Translation struct {
-	File string `json:"file"`
-	Key  string `json:"key"`
+	Translations []string `json:"translations"`
 }
 
 // LocaleHandler serves different localized versions of the frontend application
@@ -71,7 +65,7 @@ func getSupportedLocales(configFile string) ([]language.Tag, error) {
 	// filter locale keys
 	result := []language.Tag{}
 	for _, translation := range localization.Translations {
-		result = append(result, language.Make(translation.Key))
+		result = append(result, language.Make(translation))
 	}
 	return result, nil
 }
