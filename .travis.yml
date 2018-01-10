@@ -46,7 +46,12 @@ script:
 
 after_success:
   - 'if [ ${BUILD_SUITE} = "integration-test" ]; then
-      ./node_modules/.bin/gulp push-to-docker:ci;
+      if ([ ${TRAVIS_PULL_REQUEST} = "false" ] && [ -n "${DOCKER_USER}" && [ -n "${DOCKER_PASS}" ]); then
+        docker login -u $DOCKER_USER -p $DOCKER_PASS;
+        ./node_modules/.bin/gulp push-to-docker:head:cross
+      else
+        echo "This is not master build or Docker credentials are missing. Image will not be pushed."
+      fi
     else
       bash <(curl -s https://codecov.io/bash);
     fi'
