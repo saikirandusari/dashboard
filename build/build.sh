@@ -25,10 +25,6 @@ function clean {
   # Remove tmp and dist dirs
   rm -rf ${DIST_DIR}
   rm -rf ${TMP_DIR}
-
-  # Recreate empty dirs
-  mkdir -p ${DIST_DIR}
-  mkdir -p ${TMP_DIR}
 }
 
 function build:frontend {
