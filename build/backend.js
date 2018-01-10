@@ -51,7 +51,7 @@ gulp.task('backend', ['package-backend'], function(doneFn) {
  * The production binary difference from development binary is only that it contains all
  * dependencies inside it and is targeted for a specific architecture.
  */
-gulp.task('backend:prod', ['package-backend', 'clean-dist'], function() {
+gulp.task('backend:prod', ['package-backend'], function() {
   let outputBinaryPath = path.join(conf.paths.dist, conf.backend.binaryName);
   return backendProd([[outputBinaryPath, conf.arch.default]]);
 });
@@ -63,7 +63,7 @@ gulp.task('backend:prod', ['package-backend', 'clean-dist'], function() {
  * The production binary difference from development binary is only that it contains all
  * dependencies inside it and is targeted specific architecture.
  */
-gulp.task('backend:prod:cross', ['package-backend', 'clean-dist'], function() {
+gulp.task('backend:prod:cross', ['package-backend'], function() {
   let outputBinaryPaths =
       conf.paths.distCross.map((dir) => path.join(dir, conf.backend.binaryName));
   return backendProd(lodash.zip(outputBinaryPaths, conf.arch.list));
@@ -81,6 +81,13 @@ gulp.task('package-backend', ['package-backend-source', 'link-vendor']);
 gulp.task('package-backend-source', ['clean-packaged-backend-source'], function() {
   return gulp.src([path.join(conf.paths.backendSrc, '**/*')])
       .pipe(gulp.dest(conf.paths.backendTmpSrc));
+});
+
+/**
+ * Cleans packaged backend source to remove any leftovers from there.
+ */
+gulp.task('clean-packaged-backend-source', function() {
+  return del([conf.paths.backendTmpSrc]);
 });
 
 /**
