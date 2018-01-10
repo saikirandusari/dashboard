@@ -84,13 +84,6 @@ gulp.task('package-backend-source', ['clean-packaged-backend-source'], function(
 });
 
 /**
- * Cleans packaged backend source to remove any leftovers from there.
- */
-gulp.task('clean-packaged-backend-source', function() {
-  return del([conf.paths.backendTmpSrc]);
-});
-
-/**
  * Links vendor folder to the packaged backend source.
  */
 gulp.task('link-vendor', ['package-backend-source'], function(doneFn) {

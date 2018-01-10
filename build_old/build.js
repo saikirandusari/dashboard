@@ -25,7 +25,6 @@ import gulpMinifyCss from 'gulp-minify-css';
 import revAll from 'gulp-rev-all';
 import gulpUglify from 'gulp-uglify';
 import gulpUseref from 'gulp-useref';
-import mergeStream from 'merge-stream';
 import path from 'path';
 import uglifySaveLicense from 'uglify-save-license';
 
@@ -65,20 +64,6 @@ gulp.task('dependency-images', ['clean-dist'], function() {
  */
 gulp.task('dependency-images:cross', ['clean-dist'], function() {
   return dependencyImages(conf.paths.distPublicCross);
-});
-
-/**
- * Cleans all build artifacts.
- */
-gulp.task('clean', ['clean-dist'], function() {
-  return del([conf.paths.goWorkspace, conf.paths.tmp, conf.paths.coverage]);
-});
-
-/**
- * Cleans all build artifacts in the dist/ folder.
- */
-gulp.task('clean-dist', function() {
-  return del([conf.paths.distRoot, conf.paths.distPre]);
 });
 
 /**
