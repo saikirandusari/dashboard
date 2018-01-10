@@ -1,10 +1,11 @@
 #!/bin/bash
 
-PROJECT_DIR=$(pwd)/..
-I18N_DIR=${PROJECT_DIR}/i18n
-NG_BIN=${PROJECT_DIR}/node_modules/.bin/ng
-TMP_DIR=${PROJECT_DIR}/.tmp
-OUT_DIR=${PROJECT_DIR}/dist
+BUILD_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT_DIR=$(dirname "BUILD_DIR")
+I18N_DIR=${ROOT_DIR}/i18n
+NG_BIN=${ROOT_DIR}/node_modules/.bin/ng
+TMP_DIR=${ROOT_DIR}/.tmp
+OUT_DIR=${ROOT_DIR}/dist
 
 # Make sure that output directory exists and is empty.
 rm -rf ${OUT_DIR}
