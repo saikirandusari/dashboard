@@ -19,11 +19,6 @@ import gulpUtil from 'gulp-util';
 import path from 'path';
 
 /**
- * Load the i18n and l10n configuration. Used when dashboard is built in production.
- */
-let localization = require('../i18n_old/locale_conf.json');
-
-/**
  * Base path for all other paths.
  */
 const basePath = path.join(__dirname, '../');
@@ -242,13 +237,6 @@ export default {
      */
     useSauceLabs: !!process.env.TRAVIS,
   },
-
-  /**
-   * Configuration for i18n & l10n.
-   */
-  translations: localization.translations.map((translation) => {
-    return {path: path.join(basePath, 'i18n', translation.file), key: translation.key};
-  }),
 
   /**
    * Absolute paths to known directories, e.g., to source directory.
