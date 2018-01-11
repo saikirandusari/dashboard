@@ -22,7 +22,7 @@
     "build-backend:cross": "npm run clean && gulp backend:prod:cross",
     "docker-push:head:cross": "npm run build:docker:head:cross && gulp push-to-docker:head:cross",
     "format": "concurrently \"npm run format-frontend\" \"npm run format-backend\"",
-    "format:check": "npm run format-code:check && npm run format-styles:check && npm run format-html:check",
+    "format:check": "concurrently \"npm run format-code:check\" \"npm run format-styles:check\" \"npm run format-html:check\"",
     "format-frontend": "npm run format-code && npm run format-html && npm run format-styles",
     "format-code": "./aio/scripts/format.sh --code",
     "format-code:check": "./aio/scripts/format.sh --code --check",

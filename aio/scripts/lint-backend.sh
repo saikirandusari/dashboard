@@ -27,47 +27,47 @@ function ensure-go-dev-tools {
   go get github.com/golang/lint/golint
   go get github.com/gordonklaus/ineffassign
   go get github.com/client9/misspell/cmd/misspell
-  echo "OK!"
+  log-info "OK!"
 }
 
 function run-gofmt {
   log-info "Running gofmt check"
   UNFORMATTED_FILES=$(gofmt -s -l ${BACKEND_SRC_DIR})
   if [[ -n "${UNFORMATTED_FILES}" ]]; then
-    echo -e "Unformatted files:\n${UNFORMATTED_FILES}";
+    log-info -e "Unformatted files:\n${UNFORMATTED_FILES}";
     exit 1;
   fi;
-  echo "OK!"
+  log-info "OK!"
 }
 
 function run-go-vet {
   log-info "Running go vet check"
   go vet github.com/kubernetes/dashboard/src/app/backend/...
-  echo "OK!"
+  log-info "OK!"
 }
 
 function run-gocyclo {
   log-info "Running gocyclo check"
   gocyclo -over 15 ${BACKEND_SRC_DIR}
-  echo "OK!"
+  log-info "OK!"
 }
 
 function run-golint {
   log-info "Running golint check"
   golint -set_exit_status github.com/kubernetes/dashboard/src/app/backend/...
-  echo "OK!"
+  log-info "OK!"
 }
 
 function run-misspell {
   log-info "Running misspell check"
   misspell -error ${BACKEND_SRC_DIR}
-  echo "OK!"
+  log-info "OK!"
 }
 
 function run-ineffassign {
   log-info "Running ineffassign check"
   ineffassign ${BACKEND_SRC_DIR}
-  echo "OK!"
+  log-info "OK!"
 }
 
 # Execute script.

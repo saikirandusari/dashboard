@@ -26,14 +26,14 @@ ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
 function install-packages {
   log-info "Install packages that are dependencies of the test to improve performance"
   go test -i github.com/kubernetes/dashboard/src/app/backend/...
-  echo "OK!"
+  log-info "OK!"
 }
 
 function create-coverage-report-file {
   log-info "Create coverage report file"
   [ -e ${COVERAGE_REPORT_FILE} ] && rm ${COVERAGE_REPORT_FILE}
   mkdir -p "$(dirname ${COVERAGE_REPORT_FILE})" && touch ${COVERAGE_REPORT_FILE}
-  echo "OK!"
+  log-info "OK!"
 }
 
 function run-coverage-tests {

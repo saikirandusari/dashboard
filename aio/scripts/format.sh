@@ -140,10 +140,11 @@ if [ "${CHECK}" = true ] ; then
     format::code::check
     CHECK_FAILED=$?
     if [ "${CHECK_FAILED}" -gt 0 ]; then
-      echo -e "\e[31mCode is not properly formatted. Please run 'npm run format-code'.";
+      log-error "Code is not properly formatted. Please run 'npm run format-code'.";
       exit 1
     fi
 
+    log-info "Code is formatted!"
     exit 0
   fi
 
@@ -151,10 +152,11 @@ if [ "${CHECK}" = true ] ; then
     format::styles::check
     CHECK_FAILED=$?
     if [ "${CHECK_FAILED}" -gt 0 ]; then
-      echo -e "\e[31mStyles are not properly formatted. Please run 'npm run format-styles'.";
+      log-error "Styles are not properly formatted. Please run 'npm run format-styles'.";
       exit 1
     fi
 
+    log-info "Styles are formatted!"
     exit 0
   fi
 
@@ -162,14 +164,15 @@ if [ "${CHECK}" = true ] ; then
     format::html::check
     CHECK_FAILED=$?
     if [ "${CHECK_FAILED}" -gt 0 ]; then
-      echo -e "\e[31mHTML code is not properly formatted. Please run 'npm run format-html'.";
+      log-error "HTML code is not properly formatted. Please run 'npm run format-html'.";
       exit 1
     fi
 
+    log-info "HTML is formatted!"
     exit 0
   fi
 
-  echo "No check param was provided."
+  log-error "No check param was provided."
   exit 0
 fi
 
@@ -188,4 +191,4 @@ if [ "${FORMAT_HTML}" = true ] ; then
   exit 0
 fi
 
-echo "No params were provided."
+log-error "No params were provided."

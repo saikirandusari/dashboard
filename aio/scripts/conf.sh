@@ -49,5 +49,5 @@ INFO_STYLE=`tput setaf 2`
 BOLD_STYLE=`tput bold`
 RESET_STYLE=`tput sgr0`
 
-function log-info { echo -e "\n${INFO_STYLE}${BOLD_STYLE}$@${RESET_STYLE}"; }
-function log-error { echo -e "\n${ERROR_STYLE}${BOLD_STYLE}$@${RESET_STYLE}"; }
+function log-info { echo -e "${INFO_STYLE}${BOLD_STYLE}$@${RESET_STYLE}"; }
+function log-error { echo -e "${ERROR_STYLE}${BOLD_STYLE}$@${RESET_STYLE}"; }

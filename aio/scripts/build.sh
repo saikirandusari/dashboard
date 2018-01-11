@@ -29,7 +29,7 @@ function clean {
 }
 
 function build::frontend {
-  echo "Building frontend for default locale: en"
+  log-info "Building frontend for default locale: en"
   mkdir -p ${FRONTEND_DIR}/en
   ${NG_BIN} build --aot --prod --outputPath=${TMP_DIR}/frontend/en
 
@@ -37,7 +37,7 @@ function build::frontend {
   for language in "${languages[@]}"; do
     mkdir -p ${FRONTEND_DIR}/${language}
 
-    echo "Building frontend for locale: ${language}"
+    log-info "Building frontend for locale: ${language}"
     ${NG_BIN} build --aot \
                     --prod \
                     --i18nFile=${I18N_DIR}/messages.${language}.xlf \
@@ -47,17 +47,17 @@ function build::frontend {
 }
 
 function build::backend {
-  echo "Building backend"
+  log-info "Building backend"
   ${GULP_BIN} backend:prod
 }
 
 function build::backend::cross {
-  echo "Building backends for all supported architectures"
+  log-info "Building backends for all supported architectures"
   ${GULP_BIN} backend:prod:cross
 }
 
 function copy::frontend {
-  echo "Copying frontend to backend dist dir"
+  log-info "Copying frontend to backend dist dir"
   languages=($(ls ${FRONTEND_DIR}))
   architectures=($(ls ${DIST_DIR}))
   for arch in "${architectures[@]}"; do
@@ -70,7 +70,7 @@ function copy::frontend {
 }
 
 function copy::supported-locales {
-  echo "Copying locales file to backend dist dir"
+  log-info "Copying locales file to backend dist dir"
   architectures=($(ls ${DIST_DIR}))
   for arch in "${architectures[@]}"; do
     OUT_DIR=${DIST_DIR}/${arch}
@@ -119,4 +119,4 @@ copy::supported-locales
 
 END=$(date +%s.%N)
 TOOK=$(echo "$END - $START" | bc)
-echo "Build finished successfully after ${TOOK}s"
+log-info "Build finished successfully after ${TOOK}s"
