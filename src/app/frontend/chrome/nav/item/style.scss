@@ -42,12 +42,16 @@
   }
 }
 
-:host-context(.kd-nav-item) .kd-nav-item-button {
-  line-height: 4 * $baseline-grid;
-  max-height: 4 * $baseline-grid;
-  min-height: 4 * $baseline-grid;
+:host-context(.kd-nav-item) {
+  .kd-nav-item-button {
+    line-height: 4 * $baseline-grid;
+    max-height: 4 * $baseline-grid;
+    min-height: 4 * $baseline-grid;
+  }
 }
 
-:host-context(.kd-nav-group-item) .kd-nav-item-button {
-  font-weight: $bold-font-weight;
+:host-context(.kd-nav-group-item) {
+  .kd-nav-item-button {
+    font-weight: $bold-font-weight;
+  }
 }
