@@ -17,7 +17,6 @@
 ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
 . "${ROOT_DIR}/aio/scripts/conf.sh"
 
-# Declare functions.
 function ensure-cache {
   log-info "Making sure that ${CACHE_DIR} directory exists"
   mkdir -p ${CACHE_DIR}

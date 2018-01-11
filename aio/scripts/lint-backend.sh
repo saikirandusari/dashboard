@@ -70,16 +70,11 @@ function run-ineffassign {
   echo "OK!"
 }
 
-function run-go-checks {
+# Execute script.
+ensure-go-dev-tools
   run-gofmt
   #run-go-vet TODO(maciaszczykm): Enable after fixing errors.
   run-gocyclo
   #run-golint TODO(maciaszczykm): Enable after fixing errors.
   run-misspell
   run-ineffassign
-  log-info "All checks have passed! Check also goreportcard.com/report/github.com/kubernetes/dashboard"
-}
-
-# Execute script.
-ensure-go-dev-tools
-run-go-checks

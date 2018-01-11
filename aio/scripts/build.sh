@@ -13,20 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Exit on error
+# Exit on error.
 set -e
 
-# ---------- Import config ---------- #
-
+# Import config.
 ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
-source "${ROOT_DIR}/aio/scripts/conf.sh"
+. "${ROOT_DIR}/aio/scripts/conf.sh"
 
-# ---------- Define variables ---------- #
-
+# Declare variables.
 CROSS=false
 FRONTEND_ONLY=false
-
-# ---------- Define functions ---------- #
 
 function clean {
   rm -rf ${DIST_DIR} ${TMP_DIR}
@@ -99,8 +95,8 @@ function parse:args {
   done
   set -- "${POSITIONAL[@]}" # restore positional parameters
 }
-# ---------- Run script ---------- #
 
+# Execute script.
 START=$(date +%s.%N)
 
 parse:args "$@"

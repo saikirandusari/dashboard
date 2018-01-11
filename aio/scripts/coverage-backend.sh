@@ -45,7 +45,6 @@ function run-coverage-tests {
         rm profile.out
     fi
   done
-  echo "OK!"
 }
 
 # Execute script.
