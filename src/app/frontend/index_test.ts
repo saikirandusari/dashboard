@@ -24,8 +24,10 @@ import {getTestBed} from '@angular/core/testing';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
+/* tslint:disable */
 declare const __karma__: any;
 declare const require: any;
+/* tslint:enable */
 
 // Prevent Karma from running prematurely.
 __karma__.loaded = () => {};

@@ -37,7 +37,6 @@ before_script:
 script:
   - 'if [ ${BUILD_SUITE} = "integration-test" ]; then
       ./build/ci/start-cluster.sh;
-
       ./node_modules/.bin/gulp check:ci --heapsterServerHost "http://localhost:8082";
     else
        NODE_ENV=test npm run check;

@@ -17,5 +17,5 @@ coverage/
 *.iml
 *.swp
 
-# NPM debug log.
+# npm debug log.
 npm-debug.log
