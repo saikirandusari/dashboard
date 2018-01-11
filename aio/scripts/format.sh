@@ -25,6 +25,7 @@ CHECK=false
 CHECK_FAILED=0
 FORMAT_CODE=false
 FORMAT_STYLES=false
+FORMAT_HTML=false
 
 # ---------- Define functions ---------- #
 
@@ -42,7 +43,7 @@ function format::code {
 # Includes same directories as format::code function
 function format::code::check {
   find ${AIO_DIR} ${SRC_DIR} ${ROOT_DIR}/gulpfile.babel.js -type f \( -iname \*.ts -o -iname \*.js \) | \
-       xargs ${CLANG_FORMAT_BIN} -output-replacements-xml | grep "<replacement " >/dev/null
+       xargs ${CLANG_FORMAT_BIN} -output-replacements-xml | grep "<replacement " > /dev/null
 
   if [ $? -ne 1 ] ; then
     return 1
@@ -73,6 +74,37 @@ function format::styles::check {
   return 0
 }
 
+function format::html {
+  ${GLOB_RUN_BIN} ${BEAUTIFY_BIN} --type html \
+                                  --end-with-newline \
+                                  --indent-size 2 \
+                                  --wrap-attributes "force-aligned" \
+                                  --replace 'src/app/frontend/**/*.html' > /dev/null
+}
+
+function format::html::check {
+  local needsFormat=false
+  local files=($(find ${FRONTEND_SRC} -type f -name '*.html'))
+  for file in "${files[@]}"; do
+    local fileContent=$(cat ${file})
+    local formattedFile=$(${BEAUTIFY_BIN} --type html \
+                  --end-with-newline \
+                  --indent-size 2 \
+                  --wrap-attributes "force-aligned" \
+                  ${file})
+    local isFormatted=$(diff <(echo "${formattedFile}") <(echo "${fileContent}"))
+    if [[ ! -z "${isFormatted}" ]] ; then
+      needsFormat=true
+    fi
+  done
+
+  if [ "${needsFormat}" = true ] ; then
+    return 1
+  fi
+
+  return 0
+}
+
 function parse::args {
   POSITIONAL=()
   while [[ $# -gt 0 ]]; do
@@ -88,6 +120,10 @@ function parse::args {
       ;;
       -s|--styles)
       FORMAT_STYLES=true
+      shift
+      ;;
+      -h|--html)
+      FORMAT_HTML=true
       shift
       ;;
     esac
@@ -122,6 +158,17 @@ if [ "${CHECK}" = true ] ; then
     exit 0
   fi
 
+  if [ "${FORMAT_HTML}" = true ] ; then
+    format::html::check
+    CHECK_FAILED=$?
+    if [ "${CHECK_FAILED}" -gt 0 ]; then
+      echo -e "\e[31mHTML code is not properly formatted. Please run 'npm run format-html'.";
+      exit 1
+    fi
+
+    exit 0
+  fi
+
   echo "No check param was provided."
   exit 0
 fi
@@ -133,6 +180,11 @@ fi
 
 if [ "${FORMAT_STYLES}" = true ] ; then
   format::styles
+  exit 0
+fi
+
+if [ "${FORMAT_HTML}" = true ] ; then
+  format::html
   exit 0
 fi
 

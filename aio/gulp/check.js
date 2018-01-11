@@ -20,14 +20,9 @@ import gulp from 'gulp';
 import filter from 'gulp-filter';
 import license from 'gulp-header-license';
 import licenseCheck from 'gulp-license-check';
-import beautify from 'js-beautify';
 import path from 'path';
-import through from 'through2';
 
 import conf from './conf';
-
-/** HTML beautifier from js-beautify package */
-const htmlBeautify = beautify.html;
 
 /**
  * Returns correct file filter to check for license header match. Ignores files defined by
@@ -41,19 +36,6 @@ function getLicenseFileFilter(...ext) {
 }
 
 /**
-
-/**
- * Formats all project's HTML files using js-beautify.
- */
-gulp.task('format-html', function() {
-  return gulp.src([path.join(conf.paths.src, '**/*.html')], {base: conf.paths.base})
-      .pipe(formatHtml({
-        end_with_newline: true,
-        indent_size: 2,
-        wrap_attributes: 'force-aligned',
-      }))
-      .pipe(gulp.dest(conf.paths.base));
-});
 
 /**
  * Checks and prints all source files for presence of up-to-date license headers.
@@ -123,34 +105,3 @@ gulp.task('update-license-headers', () => {
       .pipe(htmlFilter.restore)
       .pipe(gulp.dest(conf.paths.base));
 });
-
-/**
- * Can be used as gulp pipe function to format HTML files.
- *
- * Example usage:
- * gulp.src([
- *   path.join(conf.paths.frontendSrc, '**\/*.html')])
- *     .pipe(formatHtml({indent_size: 2}))
- *     .pipe(gulp.dest(out))
- *
- * All config options can be found on: https://github.com/beautify-web/js-beautify#css--html
- *
- * @param {Object} config
- * @return {Function}
- */
-function formatHtml(config) {
-  function format(file, encoding, callback) {
-    if (file.isNull()) {
-      return callback(null, file);
-    }
-
-    if (file.isBuffer()) {
-      let updatedFile = htmlBeautify(file.contents.toString(), config);
-      file.contents = new Buffer(updatedFile, 'utf-8');
-    }
-
-    return callback(null, file);
-  }
-
-  return through.obj(format);
-}
