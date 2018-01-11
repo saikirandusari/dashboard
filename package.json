@@ -11,6 +11,7 @@
     "start:prod": "npm run build && ./$npm_package_config_dashboard_binary_path --kubeconfig $npm_package_config_kubeconfig",
     "start-frontend": "ng serve --aot --proxy-config aio/proxy.conf.json",
     "start-backend": "gulp serve --kubeconfig $npm_package_config_kubeconfig",
+    "start-cluster": "./aio/scripts/start-cluster.sh",
     "build": "./aio/scripts/build.sh",
     "build:cross": "./aio/scripts/build.sh -c",
     "build:docker:cross": "npm run build:cross && gulp docker-image:release:cross",

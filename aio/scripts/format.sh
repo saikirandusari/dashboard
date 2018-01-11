@@ -73,7 +73,7 @@ function format::styles::check {
   return 0
 }
 
-function parse:args {
+function parse::args {
   POSITIONAL=()
   while [[ $# -gt 0 ]]; do
     key="$1"
@@ -97,7 +97,7 @@ function parse:args {
 
 # ---------- Run script ---------- #
 
-parse:args "$@"
+parse::args "$@"
 
 if [ "${CHECK}" = true ] ; then
   if [ "${FORMAT_CODE}" = true ] ; then

@@ -13,19 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This is a script that runs gulp in a docker container,
-# for machines that don't have nodejs, go and java installed.
-
 DOCKER_RUN_OPTS=${DOCKER_RUN_OPTS:-}
 DASHBOARD_IMAGE_NAME="kubernetes-dashboard-build-image"
 DEFAULT_COMMAND=${DEFAULT_COMMAND:-"node_modules/.bin/gulp"}
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Always test if the image is up-to-date. If nothing has changed since last build,
-# it'll just use the already-built image
+# Always test if the image is up-to-date.
 docker build -t ${DASHBOARD_IMAGE_NAME} -f ${DIR}/Dockerfile ${DIR}/../
 
-# Run gulp in the container in interactive mode and expose necessary ports automatically
+# Run gulp in the container in interactive mode and expose necessary ports automatically.
 docker run \
 	-it \
 	--rm \

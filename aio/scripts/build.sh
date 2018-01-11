@@ -13,26 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Exit on error
+# Exit on error.
 set -e
 
-# ---------- Import config ---------- #
-
+# Import config.
 ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
-source "${ROOT_DIR}/aio/scripts/conf.sh"
+. "${ROOT_DIR}/aio/scripts/conf.sh"
 
-# ---------- Define variables ---------- #
-
+# Declare variables.
 CROSS=false
 FRONTEND_ONLY=false
-
-# ---------- Define functions ---------- #
 
 function clean {
   rm -rf ${DIST_DIR} ${TMP_DIR}
 }
 
-function build:frontend {
+function build::frontend {
   echo "Building frontend for default locale: en"
   mkdir -p ${FRONTEND_DIR}/en
   ${NG_BIN} build --aot --prod --outputPath=${TMP_DIR}/frontend/en
@@ -50,17 +46,17 @@ function build:frontend {
   done
 }
 
-function build:backend {
+function build::backend {
   echo "Building backend"
   ${GULP_BIN} backend:prod
 }
 
-function build:backend:cross {
+function build::backend::cross {
   echo "Building backends for all supported architectures"
   ${GULP_BIN} backend:prod:cross
 }
 
-function copy:frontend {
+function copy::frontend {
   echo "Copying frontend to backend dist dir"
   languages=($(ls ${FRONTEND_DIR}))
   architectures=($(ls ${DIST_DIR}))
@@ -73,7 +69,7 @@ function copy:frontend {
   done
 }
 
-function copy:supported-locales {
+function copy::supported-locales {
   echo "Copying locales file to backend dist dir"
   architectures=($(ls ${DIST_DIR}))
   for arch in "${architectures[@]}"; do
@@ -82,7 +78,7 @@ function copy:supported-locales {
   done
 }
 
-function parse:args {
+function parse::args {
   POSITIONAL=()
   while [[ $# -gt 0 ]]; do
     key="$1"
@@ -100,27 +96,26 @@ function parse:args {
   set -- "${POSITIONAL[@]}" # restore positional parameters
 }
 
-# ---------- Run script ---------- #
-
+# Execute script.
 START=$(date +%s.%N)
 
-parse:args "$@"
+parse::args "$@"
 clean
 
 if [ "${FRONTEND_ONLY}" = true ] ; then
-  build:frontend
+  build::frontend
   exit
 fi
 
 if [ "${CROSS}" = true ] ; then
-  build:backend:cross
+  build::backend::cross
 else
-  build:backend
+  build::backend
 fi
 
-build:frontend
-copy:frontend
-copy:supported-locales
+build::frontend
+copy::frontend
+copy::supported-locales
 
 END=$(date +%s.%N)
 TOOK=$(echo "$END - $START" | bc)

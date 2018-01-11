@@ -17,40 +17,74 @@
 ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
 . "${ROOT_DIR}/aio/scripts/conf.sh"
 
-echo "Making sure that ${CACHE_DIR} directory exists"
-mkdir -p ${CACHE_DIR}
+function ensure-cache {
+  log-info "Making sure that ${CACHE_DIR} directory exists"
+  mkdir -p ${CACHE_DIR}
+}
 
-echo "Downloading minikube ${MINIKUBE_VERSION} if it is not cached"
-wget -nc -O ${MINIKUBE_BIN} https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-${ARCH}-amd64
-chmod +x ${MINIKUBE_BIN}
-${MINIKUBE_BIN} version
+function download-minikube {
+  log-info "Downloading minikube ${MINIKUBE_VERSION} if it is not cached"
+  wget -nc -O ${MINIKUBE_BIN} https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-${ARCH}-amd64
+  chmod +x ${MINIKUBE_BIN}
+  ${MINIKUBE_BIN} version
+}
 
-echo "Making sure that kubeconfig file exists and will be used by Dashboard"
-mkdir -p $HOME/.kube
-touch $HOME/.kube/config
+function ensure-kubeconfig {
+  log-info "Making sure that kubeconfig file exists and will be used by Dashboard"
+  mkdir -p $HOME/.kube
+  touch $HOME/.kube/config
+}
 
-echo "Starting minikube"
-export MINIKUBE_HOME=${HOME}
-export CHANGE_MINIKUBE_NONE_USER=true
-sudo -E ${MINIKUBE_BIN} config set WantUpdateNotification false
-sudo -E ${MINIKUBE_BIN} config set WantReportErrorPrompt false
-sudo -E ${MINIKUBE_BIN} config set WantKubectlDownloadMsg false
-sudo -E ${MINIKUBE_BIN} start --vm-driver=none --kubernetes-version ${MINIKUBE_K8S_VERSION}
+function configure-minikube {
+  log-info "Configuring minikube"
+  export MINIKUBE_HOME=${HOME}
+  sudo -E ${MINIKUBE_BIN} config set WantUpdateNotification false
+  sudo -E ${MINIKUBE_BIN} config set WantReportErrorPrompt false
+  sudo -E ${MINIKUBE_BIN} config set WantKubectlDownloadMsg false
+}
 
-echo "Running heapster in standalone mode"
-docker run --net=host -d k8s.gcr.io/heapster-amd64:${HEAPSTER_VERSION} \
-           --heapster-port ${HEAPSTER_PORT} \
-           --source=kubernetes:http://127.0.0.1:8080?inClusterConfig=false&auth=""
+function start-ci-minikube {
+  log-info "Starting continous integration cluster"
+  export CHANGE_MINIKUBE_NONE_USER=true
+  sudo -E ${MINIKUBE_BIN} start --vm-driver=none --kubernetes-version=${MINIKUBE_K8S_VERSION}
+}
 
-echo "Waiting for heapster to be started"
-for i in {1..150}
-do
-  HEAPSTER_STATUS=$(curl -sb -H "Accept: application/json" "127.0.0.1:${HEAPSTER_PORT}/healthz")
-  if [ "$HEAPSTER_STATUS" == "ok" ]; then
-    break
+function start-ci-heapster {
+  log-info "Running heapster in standalone mode"
+  docker run --net=host -d k8s.gcr.io/heapster-amd64:${HEAPSTER_VERSION} \
+             --heapster-port ${HEAPSTER_PORT} \
+             --source=kubernetes:http://127.0.0.1:8080?inClusterConfig=false&auth=""
+
+  log-info "Waiting for heapster to be started"
+  for i in {1..150}
+  do
+    HEAPSTER_STATUS=$(curl -sb -H "Accept: application/json" "127.0.0.1:${HEAPSTER_PORT}/healthz")
+    if [ "$HEAPSTER_STATUS" == "ok" ]; then
+      break
+    fi
+    sleep 2
+  done
+  log-info "Heapster is up and running"
+}
+
+function start-local-minikube {
+  log-info "Starting local cluster"
+  sudo -E ${MINIKUBE_BIN} start --kubernetes-version=${MINIKUBE_K8S_VERSION}
+}
+
+function start-minikube {
+  if [ "${CI}" = true ] ; then
+    start-ci-minikube
+    start-ci-heapster
+  else
+    start-local-minikube
   fi
-  sleep 2
-done
-echo "Heapster is up and running"
+  log-info "Kubernetes cluster is ready to use"
+}
 
-echo "Kubernetes cluster is ready to use"
+# Execute script.
+ensure-cache
+download-minikube
+ensure-kubeconfig
+configure-minikube
+start-minikube
