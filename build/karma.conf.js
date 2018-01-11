@@ -3,21 +3,29 @@
 
 let path = require('path');
 
-module.exports = function(config) {
-  config.set({
-    basePath: '',
+module.exports = function (config) {
+  let configuration = {
+    basePath: path.join(__dirname, '..'),
+
+    logLevel: config.LOG_INFO,
+
+    browserConsoleLogOptions: {terminal: true, level: ''},
+
     frameworks: ['jasmine', '@angular/cli'],
+
     plugins: [
-      require('karma-jasmine'), require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'), require('karma-coverage-istanbul-reporter'),
-      require('@angular/cli/plugins/karma'), require('karma-coverage'),
+      require('@angular/cli/plugins/karma'),
+      require('karma-chrome-launcher'),
+      require('karma-coverage'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-jasmine'),
+      require('karma-jasmine-html-reporter'),
     ],
-    client: {
-      clearContext: false  // leave Jasmine Spec Runner output visible in browser
-    },
-    coverageIstanbulReporter: {reports: ['html', 'lcovonly'], fixWebpackSourcePaths: true},
-    angularCli: {environment: 'dev'},
+
+    browserNoActivityTimeout: 5 * 60 * 1000,  // 5 minutes.
+
     reporters: ['progress', 'kjhtml', 'coverage'],
+
     coverageReporter: {
       dir: path.join(__dirname, '..', 'coverage'),
       reporters: [
@@ -25,10 +33,20 @@ module.exports = function(config) {
         {type: 'lcovonly', subdir: 'lcov'},
       ],
     },
-    port: 9876,
+
+    coverageIstanbulReporter: {reports: ['html', 'lcovonly'], fixWebpackSourcePaths: true},
+
+    client: {
+      clearContext: false  // leave Jasmine Spec Runner output visible in browser
+    },
+
+    angularCli: {environment: 'dev'},
+
     colors: true,
-    logLevel: config.LOG_INFO,
+
     autoWatch: true,
+
+    port: 9876,
     browsers: ['ChromeHeadless'],
     customLaunchers: {
       ChromeHeadless: {
@@ -42,5 +60,43 @@ module.exports = function(config) {
       },
     },
     singleRun: false
-  });
+  };
+
+  // Use custom browser configuration when running on Travis CI.
+  if (!!process.env.TRAVIS) {
+    config.reporters.push('saucelabs');
+
+    let testName;
+    if (process.env.TRAVIS) {
+      testName = `Karma tests ${process.env.TRAVIS_REPO_SLUG}, build ` +
+        `${process.env.TRAVIS_BUILD_NUMBER}, job ${process.env.TRAVIS_JOB_NUMBER}`;
+      if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
+        testName += `, PR: https://github.com/${process.env.TRAVIS_REPO_SLUG}/pull/` +
+          `${process.env.TRAVIS_PULL_REQUEST}, job ${process.env.TRAVIS_JOB_NUMBER}`;
+      }
+    } else {
+      testName = 'Local karma tests';
+    }
+
+    config.sauceLabs = {
+      testName: testName,
+      connectOptions: {port: 5757, logfile: 'sauce_connect.log'},
+      public: 'public',
+    },
+      config.customLaunchers = {
+        sl_firefox: {base: 'SauceLabs', browserName: 'firefox'},
+        sl_ie: {base: 'SauceLabs', browserName: 'internet explorer'},
+        // Chrome must be last to compute coverage correctly.
+        sl_chrome: {base: 'SauceLabs', browserName: 'chrome'},
+      };
+    config.browsers = Object.keys(config.customLaunchers);
+
+    // Set large capture timeout to prevent timeouts when executing on saucelabs.
+    config.captureTimeout = 5 * 60 * 1000;  // 5 minutes.
+
+    // Limit concurrency to not exhaust saucelabs resources for the CI user.
+    config.concurrency = 1;
+  }
+
+  config.set(configuration);
 };
