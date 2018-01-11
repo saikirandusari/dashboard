@@ -28,7 +28,6 @@ describe('Actionbar edit item component', () => {
 
   beforeEach(() => {
     angular.mock.module(componentsModule.name, ($provide) => {
-
       let localizerService = {localize: function() {}};
 
       $provide.value('localizerService', localizerService);

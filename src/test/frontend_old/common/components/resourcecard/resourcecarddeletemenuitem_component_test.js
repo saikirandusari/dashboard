@@ -30,7 +30,6 @@ describe('Delete resource menu item', () => {
 
   beforeEach(() => {
     angular.mock.module(resourceCardModule.name, ($provide) => {
-
       let localizerService = {localize: function() {}};
 
       $provide.value('localizerService', localizerService);

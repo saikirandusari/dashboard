@@ -49,6 +49,7 @@
 
   .kd-toolbar-logo-text {
     @extend %kd-toolbar-logo-placeholder;
+
     min-width: 14 * $baseline-grid;
     width: 14 * $baseline-grid;
   }
@@ -60,7 +61,7 @@
 
 .kd-global-action-icon {
   color: $primary;
-  margin: .6 * $baseline-grid 0 $baseline-grid 0;
+  margin: 0.6 * $baseline-grid 0 $baseline-grid 0;
 }
 
 .kd-second-toolbar {
@@ -140,7 +141,7 @@
   justify-content: center;
   padding-top: 2.5 * $baseline-grid;
 
-  >md-progress-circular {
+  > md-progress-circular {
     margin: 0 auto;
   }
 }

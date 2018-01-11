@@ -51,7 +51,6 @@ describe('Login component', () => {
         kdAuthService: authService,
         kdAuthenticationModesResource: authModesResource,
       });
-
     });
   });
 

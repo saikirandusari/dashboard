@@ -16,7 +16,6 @@ import {ServiceListController} from 'service/list/controller';
 import serviceModule from 'service/module';
 
 describe('Service list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(serviceModule.name);
   });

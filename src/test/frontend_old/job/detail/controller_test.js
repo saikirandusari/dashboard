@@ -16,7 +16,6 @@ import {JobDetailController} from 'job/detail/controller';
 import jobModule from 'job/module';
 
 describe('Job Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(jobModule.name);
   });

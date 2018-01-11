@@ -16,7 +16,6 @@ import {IngressDetailController} from 'ingress/detail/controller';
 import module from 'ingress/module';
 
 describe('Ingress Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(module.name);
   });

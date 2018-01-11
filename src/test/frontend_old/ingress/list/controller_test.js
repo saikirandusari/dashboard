@@ -16,7 +16,6 @@ import {IngressListController} from 'ingress/list/controller';
 import ingressModule from 'ingress/module';
 
 describe('Ingress list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(ingressModule.name);
   });

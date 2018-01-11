@@ -93,5 +93,4 @@ describe('SerializedReference controller', () => {
 
     expect(ctrl.recalculateDerivedProperties).toHaveBeenCalled();
   });
-
 });

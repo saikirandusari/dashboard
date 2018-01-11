@@ -16,7 +16,6 @@ import {ReplicaSetDetailController} from 'replicaset/detail/controller';
 import replicaSetModule from 'replicaset/module';
 
 describe('Replica Set Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(replicaSetModule.name);
   });

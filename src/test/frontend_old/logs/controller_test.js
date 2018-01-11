@@ -150,7 +150,6 @@ describe('Logs controller', () => {
     httpBackend.flush();
     expect(ctrl.logsSet.length).toEqual(2);
     expect(ctrl.currentSelection).toEqual(otherLogs.selection);
-
   });
 
   it('should load oldest logs on loadOldest call', () => {
@@ -165,6 +164,4 @@ describe('Logs controller', () => {
     expect(ctrl.logsSet.length).toEqual(2);
     expect(ctrl.currentSelection).toEqual(otherLogs.selection);
   });
-
-
 });

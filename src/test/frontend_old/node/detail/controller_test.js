@@ -16,7 +16,6 @@ import {NodeDetailController} from 'node/detail/controller';
 import nodeModule from 'node/module';
 
 describe('Node Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(nodeModule.name);
   });

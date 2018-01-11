@@ -269,7 +269,6 @@ describe('DeployFromSettings controller', () => {
    * created manually. This is a restriction of the current design.
    */
   it('should reject names that fail to conform to appNamePattern', () => {
-
     // given
     let appNamePattern = ctrl.namePattern;
 
@@ -305,7 +304,6 @@ describe('DeployFromSettings controller', () => {
    * ctrl.maxNameLength = 24
    */
   it('should limit input that conforms to all created resources', () => {
-
     // service names are max. 24 chars
     expect(ctrl.maxNameLength <= 24);
 

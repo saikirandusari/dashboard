@@ -16,7 +16,6 @@ import {DaemonSetListController} from 'daemonset/list/controller';
 import daemonSetModule from 'daemonset/module';
 
 describe('Daemon Set list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(daemonSetModule.name);
   });

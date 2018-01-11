@@ -16,7 +16,6 @@ import {StatefulSetListController} from 'statefulset/list/controller';
 import statefulSetModule from 'statefulset/module';
 
 describe('Stateful Set list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(statefulSetModule.name);
   });

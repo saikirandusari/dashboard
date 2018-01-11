@@ -16,7 +16,6 @@ import {NodeListController} from 'node/list/controller';
 import nodeModule from 'node/module';
 
 describe('Node list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(nodeModule.name);
   });

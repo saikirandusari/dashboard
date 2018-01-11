@@ -126,7 +126,6 @@ describe('Create-Secret dialog', () => {
     expect(ctrl.mdDialog_.hide).toHaveBeenCalled();
     expect(ctrl.errorDialog_.open).toHaveBeenCalledWith('Error creating secret', errorMessage);
     expect(ctrl.log_.info).toHaveBeenCalled();
-
   });
 
   it('cancel dialog', () => {

@@ -12,23 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import {HttpClientModule} from '@angular/common/http';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatCardModule, MatIconModule, MatButtonModule, MatToolbarModule, MatTooltipModule} from "@angular/material";
+import {MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatTooltipModule} from '@angular/material';
+
+import {ServicesModule} from '../common/services/module';
 
 import {AboutComponent} from './component';
-import {ServicesModule} from "../common/services/module";
-import {HttpClientModule} from "@angular/common/http";
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
   let fixture: ComponentFixture<AboutComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AboutComponent],
-      imports: [MatCardModule, MatIconModule, MatButtonModule, MatToolbarModule, MatTooltipModule,
-      ServicesModule, HttpClientModule]
-    }).compileComponents();
+    TestBed
+        .configureTestingModule({
+          declarations: [AboutComponent],
+          imports: [
+            MatCardModule, MatIconModule, MatButtonModule, MatToolbarModule, MatTooltipModule,
+            ServicesModule, HttpClientModule
+          ]
+        })
+        .compileComponents();
   }));
 
   beforeEach(() => {

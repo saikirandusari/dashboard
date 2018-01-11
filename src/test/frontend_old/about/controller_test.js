@@ -38,5 +38,4 @@ describe('About actionbar controller', () => {
     expect(url.indexOf('v10.0') > 0).toBeTruthy();
     expect(url.indexOf('23dd7085953f7aeef15b13dba90fb21b88d772aa') > 0).toBeTruthy();
   });
-
 });

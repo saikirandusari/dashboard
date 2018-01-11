@@ -16,7 +16,6 @@ import {SecretDetailController} from 'secret/detail/controller';
 import module from 'secret/module';
 
 describe('Secret Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(module.name);
   });

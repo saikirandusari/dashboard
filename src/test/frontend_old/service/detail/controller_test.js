@@ -16,7 +16,6 @@ import {ServiceDetailController} from 'service/detail/controller';
 import serviceModule from 'service/module';
 
 describe('Service detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(serviceModule.name);
   });

@@ -16,7 +16,6 @@ import {PodListController} from 'pod/list/controller';
 import podModule from 'pod/module';
 
 describe('Pod list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(podModule.name);
   });

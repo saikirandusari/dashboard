@@ -3,7 +3,7 @@
 
 let path = require('path');
 
-module.exports = function (config) {
+module.exports = function(config) {
   let configuration = {
     basePath: path.join(__dirname, '..'),
 
@@ -69,10 +69,10 @@ module.exports = function (config) {
     let testName;
     if (process.env.TRAVIS) {
       testName = `Karma tests ${process.env.TRAVIS_REPO_SLUG}, build ` +
-        `${process.env.TRAVIS_BUILD_NUMBER}, job ${process.env.TRAVIS_JOB_NUMBER}`;
+          `${process.env.TRAVIS_BUILD_NUMBER}, job ${process.env.TRAVIS_JOB_NUMBER}`;
       if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
         testName += `, PR: https://github.com/${process.env.TRAVIS_REPO_SLUG}/pull/` +
-          `${process.env.TRAVIS_PULL_REQUEST}, job ${process.env.TRAVIS_JOB_NUMBER}`;
+            `${process.env.TRAVIS_PULL_REQUEST}, job ${process.env.TRAVIS_JOB_NUMBER}`;
       }
     } else {
       testName = 'Local karma tests';
@@ -83,12 +83,12 @@ module.exports = function (config) {
       connectOptions: {port: 5757, logfile: 'sauce_connect.log'},
       public: 'public',
     },
-      config.customLaunchers = {
-        sl_firefox: {base: 'SauceLabs', browserName: 'firefox'},
-        sl_ie: {base: 'SauceLabs', browserName: 'internet explorer'},
-        // Chrome must be last to compute coverage correctly.
-        sl_chrome: {base: 'SauceLabs', browserName: 'chrome'},
-      };
+    config.customLaunchers = {
+      sl_firefox: {base: 'SauceLabs', browserName: 'firefox'},
+      sl_ie: {base: 'SauceLabs', browserName: 'internet explorer'},
+      // Chrome must be last to compute coverage correctly.
+      sl_chrome: {base: 'SauceLabs', browserName: 'chrome'},
+    };
     config.browsers = Object.keys(config.customLaunchers);
 
     // Set large capture timeout to prevent timeouts when executing on saucelabs.

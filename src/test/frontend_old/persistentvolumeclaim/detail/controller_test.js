@@ -16,7 +16,6 @@ import {PersistentVolumeClaimDetailController} from 'persistentvolumeclaim/detai
 import persistentVolumeClaimModule from 'persistentvolumeclaim/module';
 
 describe('Persistent Volume Claim Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(persistentVolumeClaimModule.name);
   });

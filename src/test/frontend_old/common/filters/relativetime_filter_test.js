@@ -15,7 +15,6 @@
 import filtersModule from 'common/filters/module';
 
 describe('Relative time filter', () => {
-
   /**
    * Current time mock.
    * @type {Date}

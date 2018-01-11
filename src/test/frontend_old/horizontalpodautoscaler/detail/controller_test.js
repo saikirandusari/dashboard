@@ -16,7 +16,6 @@ import {HorizontalPodAutoscalerDetailController} from 'horizontalpodautoscaler/d
 import horizontalPodAutoscalerModule from 'horizontalpodautoscaler/module';
 
 describe('Horizontal Pod Autoscaler Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(horizontalPodAutoscalerModule.name);
   });

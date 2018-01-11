@@ -16,7 +16,6 @@ import {CronJobDetailController} from 'cronjob/detail/controller';
 import cronJobModule from 'cronjob/module';
 
 describe('Cron Job Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(cronJobModule.name);
   });

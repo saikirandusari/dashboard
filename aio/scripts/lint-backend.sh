@@ -57,4 +57,4 @@ echo "Running ineffassign check"
 ineffassign ${BACKEND_SRC_DIR}
 echo -e "OK!\n"
 
-echo "All checks have passed! Visit goreportcard.com/report/github.com/kubernetes/dashboard for more details"
+echo "All checks have passed! Visit https://goreportcard.com/report/github.com/kubernetes/dashboard for more details"

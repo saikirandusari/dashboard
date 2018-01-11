@@ -16,7 +16,6 @@ import {NamespaceDialogController} from 'deploy/deployfromsettings/createnamespa
 import deployModule from 'deploy/module';
 
 describe('Create-Namespace dialog', () => {
-
   let ctrl;
   let httpBackend;
   beforeEach(() => {
@@ -46,7 +45,6 @@ describe('Create-Namespace dialog', () => {
   });
 
   it('should be enable ok-button after some input', () => {
-
     // when entering something correct
     ctrl.namespace = 'my-namespace';
 
@@ -116,6 +114,5 @@ describe('Create-Namespace dialog', () => {
     expect(ctrl.mdDialog_.hide).toHaveBeenCalled();
     expect(ctrl.errorDialog_.open).toHaveBeenCalledWith('Error creating namespace', errorMessage);
     expect(ctrl.log_.info).toHaveBeenCalled();
-
   });
 });

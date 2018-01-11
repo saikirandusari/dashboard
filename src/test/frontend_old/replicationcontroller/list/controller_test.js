@@ -16,7 +16,6 @@ import {ReplicationControllerListController} from 'replicationcontroller/list/co
 import replicationControllerModule from 'replicationcontroller/module';
 
 describe('Replication controller list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(replicationControllerModule.name);
   });

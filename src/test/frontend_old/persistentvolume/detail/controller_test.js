@@ -16,7 +16,6 @@ import {PersistentVolumeDetailController} from 'persistentvolume/detail/controll
 import persistentVolumeDetailModule from 'persistentvolume/module';
 
 describe('Persistent Volume Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(persistentVolumeDetailModule.name);
   });

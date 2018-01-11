@@ -26,7 +26,6 @@ describe('Persistent Volume Claim card', () => {
     angular.mock.module(persistentVolumeClaimModule.name);
 
     angular.mock.inject(($componentController, $rootScope, kdNamespaceService) => {
-
       /** @type {!PersistentVolumeClaimCardController} */
       ctrl = $componentController('kdPersistentVolumeClaimCard', {$scope: $rootScope});
       /** @type {!NamespaceService} */

@@ -16,7 +16,6 @@ import {CronJobListController} from 'cronjob/list/controller';
 import cronJobModule from 'cronjob/module';
 
 describe('Cron Job list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(cronJobModule.name);
   });

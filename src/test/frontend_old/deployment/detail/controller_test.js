@@ -16,7 +16,6 @@ import {DeploymentDetailController} from 'deployment/detail/controller';
 import deploymentDetailModule from 'deployment/module';
 
 describe('Deployment Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(deploymentDetailModule.name);
   });

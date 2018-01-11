@@ -16,7 +16,6 @@ import {StorageClassListController} from 'storageclass/list/controller';
 import storageClassModule from 'storageclass/module';
 
 describe('Storage Class list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(storageClassModule.name);
   });

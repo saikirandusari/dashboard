@@ -16,7 +16,6 @@ import {NamespaceDetailController} from 'namespace/detail/controller';
 import namespaceModule from 'namespace/module';
 
 describe('Namespace Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(namespaceModule.name);
   });

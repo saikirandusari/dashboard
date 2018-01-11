@@ -26,7 +26,6 @@ describe('Edit resource controller', () => {
 
   beforeEach(() => {
     angular.mock.module(resourceModule.name, ($provide) => {
-
       let localizerService = {localize: function() {}};
 
       $provide.value('localizerService', localizerService);

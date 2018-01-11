@@ -15,7 +15,6 @@
 import DockerImageReference from 'common/docker/dockerimagereference';
 
 describe('DokcerImageReference', () => {
-
   it('should return empty string when containerImage is undefined', () => {
     // given
     let reference = undefined;
@@ -179,5 +178,4 @@ describe('DokcerImageReference', () => {
     // then
     expect(result).toEqual('');
   });
-
 });

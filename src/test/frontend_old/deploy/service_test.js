@@ -15,7 +15,6 @@
 import module from 'deploy/module';
 
 describe('Deploy service', () => {
-
   /** @type {!DeployService} */
   let service;
 

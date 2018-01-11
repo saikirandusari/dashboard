@@ -16,7 +16,6 @@ import {StatefulSetDetailController} from 'statefulset/detail/controller';
 import statefulSetModule from 'statefulset/module';
 
 describe('Stateful Set Detail controller', () => {
-
   beforeEach(() => {
     angular.mock.module(statefulSetModule.name);
   });

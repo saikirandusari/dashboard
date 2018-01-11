@@ -31,7 +31,6 @@ import ReplicationControllerDetailPageObject from '../replicationcontrollerdetai
  *  - Clean up and delete created resources
  */
 describe('Deploy not existing image story', () => {
-
   /** @type {!DeployPageObject} */
   let deployPage;
 
@@ -106,7 +105,6 @@ describe('Deploy not existing image story', () => {
 
     // Checks whether events table is displayed.
     expect(replicationControllerDetailPage.eventsTable.isDisplayed()).toBeTruthy();
-
   });
 
   // Clean up and delete created resources

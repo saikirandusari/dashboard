@@ -41,5 +41,4 @@ describe('StateConfig for namespace list', () => {
     expect(resource.get).toHaveBeenCalledWith(kdDataSelectService.getDefaultResourceQuery(''));
     expect(actual).toBe(promise);
   }));
-
 });

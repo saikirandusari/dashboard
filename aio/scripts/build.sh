@@ -99,6 +99,7 @@ function parse:args {
   done
   set -- "${POSITIONAL[@]}" # restore positional parameters
 }
+
 # ---------- Run script ---------- #
 
 START=$(date +%s.%N)

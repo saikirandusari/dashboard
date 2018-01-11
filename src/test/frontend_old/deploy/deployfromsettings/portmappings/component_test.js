@@ -43,7 +43,6 @@ describe('PortMappingsController controller', () => {
   });
 
   it('should add or remove port mappings, depending on service type', () => {
-
     // select internal service will add an empty port mapping
     ctrl.serviceType = serviceTypes.INT_SERVICE;
     ctrl.changeServiceType();
@@ -56,7 +55,6 @@ describe('PortMappingsController controller', () => {
   });
 
   it('should add one additional port mapping when ports are filled', () => {
-
     // given is an empty port mapping line
     ctrl.serviceType = serviceTypes.INT_SERVICE;
     ctrl.changeServiceType();
@@ -71,7 +69,6 @@ describe('PortMappingsController controller', () => {
   });
 
   it('should not allow removal if no port mapping line would be left over', () => {
-
     // given is one (empty) port mapping line
     ctrl.serviceType = serviceTypes.INT_SERVICE;
     ctrl.changeServiceType();
@@ -81,7 +78,6 @@ describe('PortMappingsController controller', () => {
   });
 
   it('should allow removal of one line if another is left over ', () => {
-
     // given is a filled and an empty port mapping line
     ctrl.serviceType = serviceTypes.INT_SERVICE;
     ctrl.changeServiceType();
@@ -94,7 +90,6 @@ describe('PortMappingsController controller', () => {
   });
 
   it('should remove port mappings', () => {
-
     // given is a filled and an empty port mapping line
     ctrl.serviceType = serviceTypes.INT_SERVICE;
     ctrl.changeServiceType();

@@ -82,12 +82,10 @@ gulp.task('check-license-headers', () => {
           [path.join(conf.paths.src, getLicenseFileFilter('ts', 'go', 'scss', 'html'))],
           {base: conf.paths.base})
       .pipe(commonFilter)
-      .pipe(
-          licenseCheck(licenseConfig('aio/templates/header.txt')).on('log', handleLogEvent))
+      .pipe(licenseCheck(licenseConfig('aio/templates/header.txt')).on('log', handleLogEvent))
       .pipe(commonFilter.restore)
       .pipe(htmlFilter)
-      .pipe(licenseCheck(licenseConfig('aio/templates/header_html.txt'))
-                .on('log', handleLogEvent))
+      .pipe(licenseCheck(licenseConfig('aio/templates/header_html.txt')).on('log', handleLogEvent))
       .pipe(htmlFilter.restore)
       .on('end', handleEndEvent);
 });

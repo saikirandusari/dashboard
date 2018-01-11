@@ -16,7 +16,6 @@ import {ConfigMapListController} from 'configmap/list/controller';
 import configMapListModule from 'configmap/module';
 
 describe('Config Map list controller', () => {
-
   beforeEach(() => {
     angular.mock.module(configMapListModule.name);
   });
