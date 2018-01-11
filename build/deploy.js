@@ -63,18 +63,18 @@ gulp.task('push-to-docker:head:cross', ['docker-image:head:cross'], function() {
       allImages.push(newImageName);
       return new Promise((resolve, reject) => {
         spawnDockerProcess(
-            [
-              'tag',
-              imageName,
-              newImageName,
-            ],
-            (err) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve();
-              }
-            });
+          [
+            'tag',
+            imageName,
+            newImageName,
+          ],
+          (err) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          });
       });
     });
 
@@ -127,21 +127,21 @@ function buildDockerImage(imageNamesAndDirs) {
     let [imageName, dir] = imageNameAndDir;
     return new Promise((resolve, reject) => {
       spawnDockerProcess(
-          [
-            'build',
-            // Remove intermediate containers after a successful build.
-            '--rm=true',
-            '--tag',
-            imageName,
-            dir,
-          ],
-          (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
-          });
+        [
+          'build',
+          // Remove intermediate containers after a successful build.
+          '--rm=true',
+          '--tag',
+          imageName,
+          dir,
+        ],
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
     });
   });
 
@@ -156,17 +156,17 @@ function pushToDocker(imageNames) {
   let spawnPromises = imageNames.map((imageName) => {
     return new Promise((resolve, reject) => {
       spawnDockerProcess(
-          [
-            'push',
-            imageName,
-          ],
-          (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
-          });
+        [
+          'push',
+          imageName,
+        ],
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
     });
   });
 
@@ -180,5 +180,5 @@ function pushToDocker(imageNames) {
  */
 function dockerFile(outputDirs, doneFn) {
   return gulp.src(path.join(conf.paths.deploySrc, 'Dockerfile'))
-      .pipe(multiDest(outputDirs, doneFn));
+    .pipe(multiDest(outputDirs, doneFn));
 }

@@ -19,21 +19,21 @@ import {AssetsService} from '../common/services/assets';
 
 @Component({selector: 'kd-chrome', templateUrl: './template.html', styleUrls: ['./style.scss']})
 export class ChromeComponent implements OnInit {
-  loading: boolean = false;
+  loading = false;
 
   constructor(@Inject(AssetsService) public assets: AssetsService, private http_: HttpClient) {}
 
-  public getOverviewStateName() {
+  getOverviewStateName() {
     return 'someName';
   }
 
-  public isSystemBannerVisible() {
+  isSystemBannerVisible() {
     return false;
   }
 
-  public create() {}
+  create() {}
 
-  public ngOnInit() {
-    this.http_.get('api/v1/node').subscribe(data => console.log(data), err => console.error(err))
+  ngOnInit() {
+    this.http_.get('api/v1/node').subscribe(data => console.log(data), err => console.error(err));
   }
 }

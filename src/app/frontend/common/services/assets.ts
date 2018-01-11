@@ -35,11 +35,11 @@ export class AssetsService {
         sanitizer.bypassSecurityTrustResourceUrl(`${this.assetsPath}/${this.appLogoTextSvg}`));
   }
 
-  public getAppLogo() {
+  getAppLogo() {
     return this.appLogoIcon;
   }
 
-  public getAppLogoText() {
+  getAppLogoText() {
     return this.appLogoTextIcon;
   }
 }

@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 @import '../../../variables';
 
 :host {
@@ -21,9 +22,9 @@
   border-radius: $baseline-grid / 4;
   display: block;
   font-weight: $regular-font-weight;
+  height: 5.5 * $baseline-grid;
   line-height: 5.5 * $baseline-grid;
   margin: 0;
-  height: 5.5 * $baseline-grid;
   max-height: 5.5 * $baseline-grid;
   padding: 0 0 0 (1.5 * $baseline-grid);
   text-align: left;
