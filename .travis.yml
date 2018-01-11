@@ -5,6 +5,7 @@ sudo: required
 dist: trusty
 group: edge
 language: node_js
+
 cache:
   directories:
     - node_modules
@@ -46,7 +47,7 @@ after_success:
   - 'if [ ${BUILD_SUITE} = "integration-test" ]; then
       if ([ ${TRAVIS_PULL_REQUEST} = "false" ] && [ -n "${DOCKER_USER}" && [ -n "${DOCKER_PASS}" ]); then
         docker login -u $DOCKER_USER -p $DOCKER_PASS;
-        ./node_modules/.bin/gulp push-to-docker:head:cross
+        npm run docker-push:head:cross;
       else
         echo "This is not master build or Docker credentials are missing. Image will not be pushed."
       fi

@@ -4,3 +4,7 @@
 import './build/check';
 import './build/backend';
 import './build/serve';
+import './build/deploy';
+// TODO: Remove/enable once required tasks are fixed
+// import './build/build';
+// import './build/test';

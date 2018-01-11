@@ -30,18 +30,16 @@ function build:frontend {
   mkdir -p ${FRONTEND_DIR}/en
   ${NG_BIN} build --aot --prod --outputPath=${TMP_DIR}/frontend/en
 
-  languages=($(ls ${I18N_DIR} | awk -F. '{print $2}'))
+  languages=($(ls i18n | awk -F"." '{if (NF>2) print $2}'))
   for language in "${languages[@]}"; do
-    if [[ ${language} != xlf ]]; then
-      mkdir -p ${FRONTEND_DIR}/${language}
+    mkdir -p ${FRONTEND_DIR}/${language}
 
-      echo "Building frontend for locale: ${language}"
-      ${NG_BIN} build --aot \
-                      --prod \
-                      --i18nFile=${I18N_DIR}/messages.${language}.xlf \
-                      --i18nFormat=xlf \
-                      --locale=${language} --outputPath=${TMP_DIR}/frontend/${language}
-    fi
+    echo "Building frontend for locale: ${language}"
+    ${NG_BIN} build --aot \
+                    --prod \
+                    --i18nFile=${I18N_DIR}/messages.${language}.xlf \
+                    --i18nFormat=xlf \
+                    --locale=${language} --outputPath=${TMP_DIR}/frontend/${language}
   done
 }
 
@@ -65,6 +63,15 @@ function copy:frontend {
       mkdir -p ${OUT_DIR}
       cp -r ${FRONTEND_DIR}/${language} ${OUT_DIR}
     done
+  done
+}
+
+function copy:supported-locales {
+  echo "Copying locales file to backend dist dir"
+  architectures=($(ls ${DIST_DIR}))
+  for arch in "${architectures[@]}"; do
+    OUT_DIR=${DIST_DIR}/${arch}
+    cp ${I18N_DIR}/locale_conf.json ${OUT_DIR}
   done
 }
 
@@ -105,6 +112,7 @@ fi
 
 build:frontend
 copy:frontend
+copy:supported-locales
 
 END=$(date +%s.%N)
 TOOK=$(echo "$END - $START" | bc)

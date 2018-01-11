@@ -19,23 +19,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/golang/glog"
 	"golang.org/x/text/language"
 )
 
-const defaultDir = "./public/en"
+const defaultLocaleDir = "en"
+const assetsDir = "public"
 
 // Localization is a spec for the localization configuration of dashboard.
 type Localization struct {
-	Translations []Translation `json:"translations"`
-}
-
-// Translation is a single translation definition spec.
-type Translation struct {
-	File string `json:"file"`
-	Key  string `json:"key"`
+	Translations []string `json:"translations"`
 }
 
 // LocaleHandler serves different localized versions of the frontend application
@@ -71,9 +67,32 @@ func getSupportedLocales(configFile string) ([]language.Tag, error) {
 	// filter locale keys
 	result := []language.Tag{}
 	for _, translation := range localization.Translations {
-		result = append(result, language.Make(translation.Key))
+		result = append(result, language.Make(translation))
 	}
 	return result, nil
+}
+
+// getAssetsDir determines the absolute path to the localized frontend assets
+func getAssetsDir() string {
+	path, err := os.Executable()
+	if err != nil {
+		glog.Fatalf("Error determining path to executable: %#v", err)
+	}
+	path, err = filepath.EvalSymlinks(path)
+	if err != nil {
+		glog.Fatalf("Error evaluating symlinks for path '%s': %#v", path, err)
+	}
+	return filepath.Join(filepath.Dir(path), assetsDir)
+}
+
+func dirExists(name string) bool {
+	if _, err := os.Stat(name); err != nil {
+		if os.IsNotExist(err) {
+			glog.Warningf(name)
+			return false
+		}
+	}
+	return true
 }
 
 // LocaleHandler serves different html versions based on the Accept-Language header.
@@ -92,6 +111,8 @@ func (handler *LocaleHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) 
 }
 
 func (handler *LocaleHandler) determineLocalizedDir(locale string) string {
+	assetsDir := getAssetsDir()
+	defaultDir := filepath.Join(assetsDir, defaultLocaleDir)
 	tags, _, err := language.ParseAcceptLanguage(locale)
 	if (err != nil) || (len(tags) == 0) {
 		return defaultDir
@@ -110,19 +131,9 @@ func (handler *LocaleHandler) determineLocalizedDir(locale string) string {
 		}
 	}
 
-	localeDir := "./public/" + matchedLocale
-	if matchedLocale != "" && handler.dirExists(localeDir) {
+	localeDir := filepath.Join(assetsDir, matchedLocale)
+	if matchedLocale != "" && dirExists(localeDir) {
 		return localeDir
 	}
 	return defaultDir
-}
-
-func (handler *LocaleHandler) dirExists(name string) bool {
-	if _, err := os.Stat(name); err != nil {
-		if os.IsNotExist(err) {
-			glog.Warningf(name)
-			return false
-		}
-	}
-	return true
 }
