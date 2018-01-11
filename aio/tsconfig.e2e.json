@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/e2e",
-    "baseUrl": "./",
+    "baseUrl": "../src/app/frontend",
     "module": "commonjs",
     "target": "es5",
     "types": [
@@ -10,5 +10,6 @@
       "jasminewd2",
       "node"
     ]
-  }
+  },
+  "include": ["../src/test/e2e/**/*"]
 }
