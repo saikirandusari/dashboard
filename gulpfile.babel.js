@@ -5,6 +5,3 @@ import './aio/gulp/check';
 import './aio/gulp/backend';
 import './aio/gulp/serve';
 import './aio/gulp/deploy';
-// TODO: Remove/enable once required tasks are fixed
-// import './build/build';
-// import './build/test';

@@ -36,7 +36,7 @@
     "test-backend": "go test github.com/kubernetes/dashboard/src/app/backend/...",
     "coverage-backend": "./aio/scripts/coverage-backend.sh coverage/go.txt",
     "e2e": "protractor ./aio/protractor.conf.js",
-    "clean": "rm -rf .go_workspace .tmp .tools coverage dist",
+    "clean": "rm -rf .go_workspace .tmp .tools coverage dist npm-debug.log",
     "postinstall": "webdriver-manager update"
   },
   "dependencies": {
