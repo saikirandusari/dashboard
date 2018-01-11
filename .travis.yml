@@ -34,7 +34,7 @@ script:
       ./aio/scripts/start-cluster.sh;
       npm run e2e;
     else
-      npm run check;
+      npm run check:code-quality;
     fi'
 after_success:
   - 'if [ ${BUILD_SUITE} = "e2e" ]; then
