@@ -13,11 +13,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Directories.
 ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
 AIO_DIR="${ROOT_DIR}/aio"
 I18N_DIR="${ROOT_DIR}/i18n"
-NG_BIN="${ROOT_DIR}/node_modules/.bin/ng"
-GULP_BIN="${ROOT_DIR}/node_modules/.bin/gulp"
 TMP_DIR="${ROOT_DIR}/.tmp"
 FRONTEND_DIR="${TMP_DIR}/frontend"
 DIST_DIR="${ROOT_DIR}/dist"
+CACHE_DIR="${ROOT_DIR}/.cached_tools"
+
+# Binaries.
+NG_BIN="${ROOT_DIR}/node_modules/.bin/ng"
+GULP_BIN="${ROOT_DIR}/node_modules/.bin/gulp"
+
+# Other global constants.
+ARCH=$(uname | awk '{print tolower($0)}')
+
+# Local cluster configuration (check start-cluster.sh script for more details).
+HEAPSTER_VERSION="v1.4.0"
+HEAPSTER_PORT=8082
+MINIKUBE_VERSION=v0.24.1
+MINIKUBE_K8S_VERSION=v1.8.0
+MINIKUBE_BIN=${CACHE_DIR}/minikube-${MINIKUBE_VERSION}

@@ -13,16 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-BASE_DIR=.tools/
-HEAPSTER_VERSION="v1.4.0"
-HEAPSTER_PORT=8082
-MINIKUBE_VERSION=v0.24.1
-MINIKUBE_K8S_VERSION=v1.8.0
-MINIKUBE_BIN=${BASE_DIR}/minikube-${MINIKUBE_VERSION}
-ARCH=$(uname | awk '{print tolower($0)}')
+# Import config.
+ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
+. "${ROOT_DIR}/aio/scripts/conf.sh"
 
-echo "Making sure that ${BASE_DIR} directory exists"
-mkdir -p ${BASE_DIR}
+echo "Making sure that ${CACHE_DIR} directory exists"
+mkdir -p ${CACHE_DIR}
 
 echo "Downloading minikube ${MINIKUBE_VERSION} if it is not cached"
 wget -nc -O ${MINIKUBE_BIN} https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-${ARCH}-amd64
