@@ -16,19 +16,39 @@
 # Script parameters.
 COVERAGE_REPORT_FILE=${1}
 
-# Install packages that are dependencies of the test. Do not run the test. Improves performance.
-go test -i github.com/kubernetes/dashboard/src/app/backend/...
-
-# Create coverage report file.
+# Exit on error.
 set -e
-[ -e ${COVERAGE_REPORT_FILE} ] && rm ${COVERAGE_REPORT_FILE}
-mkdir -p "$(dirname ${COVERAGE_REPORT_FILE})" && touch ${COVERAGE_REPORT_FILE}
 
-# Run coverage tests of all project packages (without -race parameter to improve performance).
-for PKG in $(go list github.com/kubernetes/dashboard/src/app/backend/... | grep -v vendor); do
+# Import config.
+ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
+. "${ROOT_DIR}/aio/scripts/conf.sh"
+
+function install-packages {
+  log-info "Install packages that are dependencies of the test to improve performance"
+  go test -i github.com/kubernetes/dashboard/src/app/backend/...
+  echo "OK!"
+}
+
+function create-coverage-report-file {
+  log-info "Create coverage report file"
+  [ -e ${COVERAGE_REPORT_FILE} ] && rm ${COVERAGE_REPORT_FILE}
+  mkdir -p "$(dirname ${COVERAGE_REPORT_FILE})" && touch ${COVERAGE_REPORT_FILE}
+  echo "OK!"
+}
+
+function run-coverage-tests {
+  log-info "Run coverage tests of all project packages"
+  for PKG in $(go list github.com/kubernetes/dashboard/src/app/backend/... | grep -v vendor); do
     go test -coverprofile=profile.out -covermode=atomic ${PKG}
     if [ -f profile.out ]; then
         cat profile.out >> ${COVERAGE_REPORT_FILE}
         rm profile.out
     fi
-done
+  done
+  echo "OK!"
+}
+
+# Execute script.
+install-packages
+create-coverage-report-file
+run-coverage-tests
