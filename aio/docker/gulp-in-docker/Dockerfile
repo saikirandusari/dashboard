@@ -38,7 +38,7 @@ RUN curl -sSL https://get.docker.com/builds/Linux/x86_64/docker-1.9.1 > /usr/bin
 WORKDIR /dashboard
 
 # Copy entire source tree.
-COPY ./ ./
+COPY ../../ ./
 
 # Install dependencies. This will take a while.
 RUN npm install --unsafe-perm

@@ -83,10 +83,10 @@ gulp.task('check-license-headers', () => {
           {base: conf.paths.base})
       .pipe(commonFilter)
       .pipe(
-          licenseCheck(licenseConfig('build/license/header.txt')).on('log', handleLogEvent))
+          licenseCheck(licenseConfig('aio/templates/header.txt')).on('log', handleLogEvent))
       .pipe(commonFilter.restore)
       .pipe(htmlFilter)
-      .pipe(licenseCheck(licenseConfig('build/license/header_html.txt'))
+      .pipe(licenseCheck(licenseConfig('aio/templates/header_html.txt'))
                 .on('log', handleLogEvent))
       .pipe(htmlFilter.restore)
       .on('end', handleEndEvent);
@@ -118,10 +118,10 @@ gulp.task('update-license-headers', () => {
           [path.join(conf.paths.src, getLicenseFileFilter('ts', 'go', 'scss', 'html'))],
           {base: conf.paths.base})
       .pipe(commonFilter)
-      .pipe(license(fs.readFileSync('build/assets/license/header.txt', 'utf8'), {}, matchRate))
+      .pipe(license(fs.readFileSync('aio/templates/header.txt', 'utf8'), {}, matchRate))
       .pipe(commonFilter.restore)
       .pipe(htmlFilter)
-      .pipe(license(fs.readFileSync('build/assets/license/header_html.txt', 'utf8'), {}, matchRate))
+      .pipe(license(fs.readFileSync('aio/templates/header_html.txt', 'utf8'), {}, matchRate))
       .pipe(htmlFilter.restore)
       .pipe(gulp.dest(conf.paths.base));
 });

@@ -21,7 +21,7 @@ import path from 'path';
 /**
  * Base path for all other paths.
  */
-const basePath = path.join(__dirname, '../');
+const basePath = path.join(__dirname, '../../');
 
 /**
  * Compilation architecture configuration.
@@ -242,8 +242,6 @@ export default {
    * Absolute paths to known directories, e.g., to source directory.
    */
   paths: {
-    app: path.join(basePath, 'src/app'),
-    assets: path.join(basePath, 'src/app/assets'),
     base: basePath,
     backendSrc: path.join(basePath, 'src/app/backend'),
     backendTmp: path.join(basePath, '.tmp/backend'),
@@ -252,10 +250,6 @@ export default {
     backendTmpSrcVendor: path.join(
         basePath, '.tmp/backend/src/github.com/kubernetes/dashboard/vendor'),
     backendVendor: path.join(basePath, 'vendor'),
-    build: path.join(basePath, 'build'),
-    coverage: path.join(basePath, 'coverage'),
-    coverageBackend: path.join(basePath, 'coverage/go.txt'),
-    coverageFrontend: path.join(basePath, 'coverage/lcov/lcov.info'),
     deploySrc: path.join(basePath, 'src/deploy'),
     dist: path.join(basePath, 'dist', arch.default),
     distCross: arch.list.map((arch) => path.join(basePath, 'dist', arch)),
@@ -263,20 +257,8 @@ export default {
     distPublic: path.join(basePath, 'dist', arch.default, 'public'),
     distPublicCross: arch.list.map((arch) => path.join(basePath, 'dist', arch, 'public')),
     distRoot: path.join(basePath, 'dist'),
-    externs: path.join(basePath, 'src/app/externs'),
-    frontendSrc: path.join(basePath, 'src/app/frontend'),
-    frontendTest: path.join(basePath, 'src/test/frontend'),
     goTools: path.join(basePath, '.tools/go'),
-    i18nProd: path.join(basePath, '.tmp/i18n'),
-    integrationTest: path.join(basePath, 'src/test/integration'),
-    jsoneditorImages: path.join(basePath, 'node_modules/jsoneditor/src/css/img'),
-    karmaConf: path.join(basePath, 'build/karma.conf.js'),
-    materialIcons: path.join(basePath, 'node_modules/material-design-icons/iconfont'),
-    nodeModules: path.join(basePath, 'node_modules'),
-    partials: path.join(basePath, '.tmp/partials'),
-    messagesForExtraction: path.join(basePath, '.tmp/messages_for_extraction'),
     prodTmp: path.join(basePath, '.tmp/prod'),
-    protractorConf: path.join(basePath, 'build/protractor.conf.js'),
     serve: path.join(basePath, '.tmp/serve'),
     src: path.join(basePath, 'src'),
     tmp: path.join(basePath, '.tmp'),
