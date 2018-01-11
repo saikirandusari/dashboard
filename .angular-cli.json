@@ -11,11 +11,11 @@
         "assets"
       ],
       "index": "index.html",
-      "main": "main.ts",
+      "main": "index.ts",
       "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "tsconfig.spec.json",
+      "test": "index_test.ts",
+      "tsconfig": "../../../aio/tsconfig.app.json",
+      "testTsconfig": "../../../aio/tsconfig.spec.json",
       "prefix": "kd",
       "styles": [
         "../../../node_modules/material-design-icons/iconfont/material-icons.css",
@@ -30,35 +30,21 @@
       }
     }
   ],
-  "e2e": {
-    "protractor": {
-      "config": "./aio/protractor.conf.js"
-    }
-  },
-  "lint": [
-    {
-      "project": "src/app/frontend/tsconfig.app.json",
-      "exclude": "**/node_modules/**"
-    },
-    {
-      "project": "src/app/frontend/tsconfig.spec.json",
-      "exclude": "**/node_modules/**"
-    },
-    {
-      "project": "src/test/frontend/e2e/tsconfig.e2e.json",
-      "exclude": "**/node_modules/**"
-    }
-  ],
-  "test": {
-    "karma": {
-      "config": "./aio/karma.conf.js"
-    }
-  },
   "defaults": {
     "component": {},
     "serve": {
       "port": 8080
     },
     "styleExt": "scss"
+  },
+  "test": {
+    "karma": {
+      "config": "aio/karma.conf.js"
+    }
+  },
+  "e2e": {
+    "protractor": {
+      "config": "aio/protractor.conf.js"
+    }
   }
 }
