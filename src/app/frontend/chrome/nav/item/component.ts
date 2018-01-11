@@ -20,7 +20,7 @@ import {Component} from '@angular/core';
   styleUrls: ['style.scss'],
 })
 export class NavItemComponent {
-  public getHref() {
+  getHref() {
     return 'test';
   }
 

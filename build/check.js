@@ -29,9 +29,6 @@ import conf from './conf';
 /** HTML beautifier from js-beautify package */
 const htmlBeautify = beautify.html;
 
-/** List of names of files that should be ignored during license header check */
-const ignoredLicenseCheckFiles = ['fieldpath'];
-
 /**
  * Returns correct file filter to check for license header match. Ignores files defined by
  * @ref ignoredLicenseCheckFiles
@@ -40,24 +37,10 @@ const ignoredLicenseCheckFiles = ['fieldpath'];
  * @return {string}
  */
 function getLicenseFileFilter(...ext) {
-  let ignorePattern =
-      ignoredLicenseCheckFiles.length > 0 ? `!(${ignoredLicenseCheckFiles.join()})` : '';
-  if (ext.length === 1) {
-    return `**/${ignorePattern}*.${ext}`;
-  }
-  return `**/${ignorePattern}*.{${ext.join()}}`;
+  return `**/*.{${ext.join()}}`;
 }
 
 /**
- * Builds Dashboard and ensures that the following requirements are met:
- *   * The code follows the style guidelines.
- *   * Unit tests in frontend & backend are successful.
- *   * Integration tests against Kubernetes are successful. The cluster is
- *     expected to be up and running as a prerequisite.
- *
- * This task should be used prior to publishing a change.
- **/
-gulp.task('check', ['check-license-headers', 'lint', 'test', 'integration-test:prod']);
 
 /**
  * Formats all project's HTML files using js-beautify.
@@ -100,10 +83,10 @@ gulp.task('check-license-headers', () => {
           {base: conf.paths.base})
       .pipe(commonFilter)
       .pipe(
-          licenseCheck(licenseConfig('build/assets/license/header.txt')).on('log', handleLogEvent))
+          licenseCheck(licenseConfig('build/license/header.txt')).on('log', handleLogEvent))
       .pipe(commonFilter.restore)
       .pipe(htmlFilter)
-      .pipe(licenseCheck(licenseConfig('build/assets/license/header_html.txt'))
+      .pipe(licenseCheck(licenseConfig('build/license/header_html.txt'))
                 .on('log', handleLogEvent))
       .pipe(htmlFilter.restore)
       .on('end', handleEndEvent);

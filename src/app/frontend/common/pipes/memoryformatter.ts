@@ -31,8 +31,8 @@ export class MemoryFormatter implements PipeTransform {
       power += 1;
     }
 
-    let formatted = Math.round(value / divider);
-    let suffix = this.powerSuffixes[power];
+    const formatted = Math.round(value / divider);
+    const suffix = this.powerSuffixes[power];
     return suffix ? `${formatted} ${suffix}` : formatted;
   }
 }

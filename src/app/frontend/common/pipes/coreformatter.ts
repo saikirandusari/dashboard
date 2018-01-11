@@ -15,8 +15,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 /**
- * Formats cores usage in millicores to a decimal prefix format, e.g., e.g.,
- * 321,20 kCPU.
+ * Formats cores usage in millicores to a decimal prefix format, e.g. 321,20 kCPU.
  */
 @Pipe({name: 'coreFormatter'})
 export class CoreFormatter implements PipeTransform {
@@ -25,7 +24,6 @@ export class CoreFormatter implements PipeTransform {
 
   transform(value: number) {
     value = value / 1000;
-
     let divider = 1;
     let power = 0;
 
@@ -33,8 +31,9 @@ export class CoreFormatter implements PipeTransform {
       divider *= this.base;
       power += 1;
     }
-    let formatted = Math.round(value / divider);
-    let suffix = this.powerSuffixes[power];
+
+    const formatted = Math.round(value / divider);
+    const suffix = this.powerSuffixes[power];
     return suffix ? `${formatted} ${suffix}` : formatted;
   }
 }
