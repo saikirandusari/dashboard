@@ -16,45 +16,70 @@
 # Exit on error.
 set -e
 
-# Define constants.
-BACKEND_SRC_DIR=src/app/backend
+# Import config.
+ROOT_DIR="$(cd $(dirname "${BASH_SOURCE}")/../.. && pwd -P)"
+. "${ROOT_DIR}/aio/scripts/conf.sh"
 
-echo "Making sure that all required Go development tools are available"
-go get golang.org/x/tools/cmd/goimports
-go get github.com/fzipp/gocyclo
-go get github.com/golang/lint/golint
-go get github.com/gordonklaus/ineffassign
-go get github.com/client9/misspell/cmd/misspell
-echo -e "OK!\n"
+function ensure-go-dev-tools {
+  log-info "Making sure that all required Go development tools are available"
+  go get golang.org/x/tools/cmd/goimports
+  go get github.com/fzipp/gocyclo
+  go get github.com/golang/lint/golint
+  go get github.com/gordonklaus/ineffassign
+  go get github.com/client9/misspell/cmd/misspell
+  echo "OK!"
+}
 
-echo "Running gofmt check"
-UNFORMATTED_FILES=$(gofmt -s -l ${BACKEND_SRC_DIR})
-if [[ -n "${UNFORMATTED_FILES}" ]]; then
-  echo -e "Unformatted files:\n${UNFORMATTED_FILES}";
-  exit 1;
-fi;
-echo -e "OK!\n"
+function run-gofmt {
+  log-info "Running gofmt check"
+  UNFORMATTED_FILES=$(gofmt -s -l ${BACKEND_SRC_DIR})
+  if [[ -n "${UNFORMATTED_FILES}" ]]; then
+    echo -e "Unformatted files:\n${UNFORMATTED_FILES}";
+    exit 1;
+  fi;
+  echo "OK!"
+}
 
-echo "Running go vet check"
-# TODO(maciaszczykm): Enable after fixing errors.
-# go vet github.com/kubernetes/dashboard/src/app/backend/...
-echo -e "OK!\n"
+function run-go-vet {
+  log-info "Running go vet check"
+  go vet github.com/kubernetes/dashboard/src/app/backend/...
+  echo "OK!"
+}
 
-echo "Running gocyclo check"
-gocyclo -over 15 ${BACKEND_SRC_DIR}
-echo -e "OK!\n"
+function run-gocyclo {
+  log-info "Running gocyclo check"
+  gocyclo -over 15 ${BACKEND_SRC_DIR}
+  echo "OK!"
+}
 
-echo "Running golint check"
-# TODO(maciaszczykm): Enable after fixing errors.
-# golint -set_exit_status github.com/kubernetes/dashboard/src/app/backend/...
-echo -e "OK!\n"
+function run-golint {
+  log-info "Running golint check"
+  golint -set_exit_status github.com/kubernetes/dashboard/src/app/backend/...
+  echo "OK!"
+}
 
-echo "Running misspell check"
-misspell -error ${BACKEND_SRC_DIR}
-echo -e "OK!\n"
+function run-misspell {
+  log-info "Running misspell check"
+  misspell -error ${BACKEND_SRC_DIR}
+  echo "OK!"
+}
 
-echo "Running ineffassign check"
-ineffassign ${BACKEND_SRC_DIR}
-echo -e "OK!\n"
+function run-ineffassign {
+  log-info "Running ineffassign check"
+  ineffassign ${BACKEND_SRC_DIR}
+  echo "OK!"
+}
 
-echo "All checks have passed! Visit goreportcard.com/report/github.com/kubernetes/dashboard for more details"
+function run-go-checks {
+  run-gofmt
+  #run-go-vet TODO(maciaszczykm): Enable after fixing errors.
+  run-gocyclo
+  #run-golint TODO(maciaszczykm): Enable after fixing errors.
+  run-misspell
+  run-ineffassign
+  log-info "All checks have passed! Check also goreportcard.com/report/github.com/kubernetes/dashboard"
+}
+
+# Execute script.
+ensure-go-dev-tools
+run-go-checks

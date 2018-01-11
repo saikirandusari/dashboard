@@ -21,6 +21,7 @@ TMP_DIR="${ROOT_DIR}/.tmp"
 FRONTEND_DIR="${TMP_DIR}/frontend"
 DIST_DIR="${ROOT_DIR}/dist"
 CACHE_DIR="${ROOT_DIR}/.cached_tools"
+BACKEND_SRC_DIR="${ROOT_DIR}/src/app/backend"
 
 # Binaries.
 NG_BIN="${ROOT_DIR}/node_modules/.bin/ng"
