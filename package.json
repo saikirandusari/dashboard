@@ -29,13 +29,7 @@
     "lint-frontend": "npm run lint-ts && npm run lint-sass",
     "lint-ts": "tslint -c tslint.json --project . -t codeFrame",
     "lint-sass": "./node_modules/sass-lint/bin/sass-lint.js -c .sass-lint.yml 'src/app/frontend/**/*.scss' -v -q",
-    "lint-backend": "",
-    "lint-gofmt": "gofmt -s -d src/app/backend",
-    "lint-go-vet": "go vet github.com/kubernetes/dashboard/src/app/backend/...",
-    "lint-gocyclo": "",
-    "lint-golint": "golint github.com/kubernetes/dashboard/src/app/backend/...",
-    "lint-misspell": "misspell src/app/*",
-    "lint-ineffassign": "",
+    "lint-backend": "./aio/scripts/lint-backend.sh",
     "test": "npm run test-frontend && npm run test-backend",
     "test-frontend": "ng test --config aio/karma.conf.js --single-run",
     "test-frontend:watch": "ng test --config aio/karma.conf.js",
@@ -43,7 +37,7 @@
     "coverage-backend": "./aio/scripts/coverage-backend.sh coverage/go.txt",
     "e2e": "protractor ./aio/protractor.conf.js",
     "clean": "rm -rf .go_workspace .tmp .tools coverage dist",
-    "postinstall": "webdriver-manager update && ./aio/scripts/get-go-tools.sh"
+    "postinstall": "webdriver-manager update"
   },
   "dependencies": {
     "@angular/animations": "^5.1.3",
