@@ -19,7 +19,7 @@ import {AssetsService} from '../common/services/assets';
 
 @Component({selector: 'kd-chrome', templateUrl: './template.html', styleUrls: ['./style.scss']})
 export class ChromeComponent implements OnInit {
-  loading: boolean = false;
+  loading = false;
 
   constructor(@Inject(AssetsService) public assets: AssetsService, private http_: HttpClient) {}
 
