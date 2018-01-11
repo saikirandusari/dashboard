@@ -1,6 +1,6 @@
 # Do not include the Docker build pipeline itself.
-build/Dockerfile
-build/run-gulp-in-docker.sh
+aio/docker/gulp-in-docker/Dockerfile
+aio/scripts/run-gulp-in-docker.sh
 
 # Ignore all development artifacts so that the build is always clean.
 .git
