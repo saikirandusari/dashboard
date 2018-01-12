@@ -16,25 +16,24 @@ module.exports = function(config) {
     plugins: [
       require('@angular/cli/plugins/karma'),
       require('karma-chrome-launcher'),
-      require('karma-coverage'),
-      require('karma-coverage-istanbul-reporter'),
+      require('karma-firefox-launcher'),
       require('karma-jasmine'),
       require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
     ],
 
     browserNoActivityTimeout: 5 * 60 * 1000,  // 5 minutes.
 
-    reporters: ['progress', 'kjhtml', 'coverage'],
+    reporters: ['progress', 'kjhtml'],
 
-    coverageReporter: {
+    coverageIstanbulReporter: {
       dir: path.join(__dirname, '..', 'coverage'),
-      reporters: [
-        {type: 'html', subdir: 'html'},
-        {type: 'lcovonly', subdir: 'lcov'},
-      ],
+      reports: ['html', 'lcovonly'],
+      'report-config': {
+        html: {subdir: 'html'},
+      },
+      fixWebpackSourcePaths: true
     },
-
-    coverageIstanbulReporter: {reports: ['html', 'lcovonly'], fixWebpackSourcePaths: true},
 
     client: {
       clearContext: false  // leave Jasmine Spec Runner output visible in browser
@@ -43,12 +42,16 @@ module.exports = function(config) {
     angularCli: {environment: 'dev'},
 
     colors: true,
-
     autoWatch: true,
-
     port: 9876,
-    browsers: ['ChromeHeadless'],
-    customLaunchers: {
+    browsers: ['Chrome'],
+    singleRun: false
+  };
+
+  // Use custom browser configuration when running on Travis CI.
+  if (!!process.env.TRAVIS) {
+    configuration.browsers = ['ChromeHeadless', 'FirefoxHeadless'];
+    configuration.customLaunchers = {
       ChromeHeadless: {
         base: 'Chrome',
         flags: [
@@ -58,44 +61,11 @@ module.exports = function(config) {
           '--remote-debugging-port=9222',
         ],
       },
-    },
-    singleRun: false
-  };
-
-  // Use custom browser configuration when running on Travis CI.
-  if (!!process.env.TRAVIS) {
-    configuration.reporters.push('saucelabs');
-
-    let testName;
-    if (process.env.TRAVIS) {
-      testName = `Karma tests ${process.env.TRAVIS_REPO_SLUG}, build ` +
-          `${process.env.TRAVIS_BUILD_NUMBER}, job ${process.env.TRAVIS_JOB_NUMBER}`;
-      if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
-        testName += `, PR: https://github.com/${process.env.TRAVIS_REPO_SLUG}/pull/` +
-            `${process.env.TRAVIS_PULL_REQUEST}, job ${process.env.TRAVIS_JOB_NUMBER}`;
-      }
-    } else {
-      testName = 'Local karma tests';
-    }
-
-    configuration.sauceLabs = {
-      testName: testName,
-      connectOptions: {port: 5757, logfile: 'sauce_connect.log'},
-      public: 'public',
-    },
-    configuration.customLaunchers = {
-      sl_firefox: {base: 'SauceLabs', browserName: 'firefox'},
-      sl_ie: {base: 'SauceLabs', browserName: 'internet explorer'},
-      // Chrome must be last to compute coverage correctly.
-      sl_chrome: {base: 'SauceLabs', browserName: 'chrome'},
+      FirefoxHeadless: {
+        base: 'Firefox',
+        flags: ['-headless'],
+      },
     };
-    configuration.browsers = Object.keys(configuration.customLaunchers);
-
-    // Set large capture timeout to prevent timeouts when executing on saucelabs.
-    configuration.captureTimeout = 5 * 60 * 1000;  // 5 minutes.
-
-    // Limit concurrency to not exhaust saucelabs resources for the CI user.
-    configuration.concurrency = 1;
   }
 
   config.set(configuration);
