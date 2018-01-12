@@ -140,7 +140,7 @@ if [ "${CHECK}" = true ] ; then
     format::code::check
     CHECK_FAILED=$?
     if [ "${CHECK_FAILED}" -gt 0 ]; then
-      log-error "Code is not properly formatted. Please run 'npm run format-code'.";
+      log-error "Code is not properly formatted. Please run 'npm run format:frontend'.";
       exit 1
     fi
 
@@ -151,7 +151,7 @@ if [ "${CHECK}" = true ] ; then
     format::styles::check
     CHECK_FAILED=$?
     if [ "${CHECK_FAILED}" -gt 0 ]; then
-      log-error "Styles are not properly formatted. Please run 'npm run format-styles'.";
+      log-error "Styles are not properly formatted. Please run 'npm run format:frontend'.";
       exit 1
     fi
 
@@ -162,7 +162,7 @@ if [ "${CHECK}" = true ] ; then
     format::html::check
     CHECK_FAILED=$?
     if [ "${CHECK_FAILED}" -gt 0 ]; then
-      log-error "HTML code is not properly formatted. Please run 'npm run format-html'.";
+      log-error "HTML code is not properly formatted. Please run 'npm run format:frontend'.";
       exit 1
     fi
 
