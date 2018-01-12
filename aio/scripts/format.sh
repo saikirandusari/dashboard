@@ -145,7 +145,6 @@ if [ "${CHECK}" = true ] ; then
     fi
 
     log-info "Code is formatted!"
-    exit 0
   fi
 
   if [ "${FORMAT_STYLES}" = true ] ; then
@@ -157,7 +156,6 @@ if [ "${CHECK}" = true ] ; then
     fi
 
     log-info "Styles are formatted!"
-    exit 0
   fi
 
   if [ "${FORMAT_HTML}" = true ] ; then
@@ -169,26 +167,19 @@ if [ "${CHECK}" = true ] ; then
     fi
 
     log-info "HTML is formatted!"
-    exit 0
   fi
 
-  log-error "No check param was provided."
   exit 0
 fi
 
 if [ "${FORMAT_CODE}" = true ] ; then
   format::code
-  exit 0
 fi
 
 if [ "${FORMAT_STYLES}" = true ] ; then
   format::styles
-  exit 0
 fi
 
 if [ "${FORMAT_HTML}" = true ] ; then
   format::html
-  exit 0
 fi
-
-log-error "No params were provided."
