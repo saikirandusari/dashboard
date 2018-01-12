@@ -5,54 +5,54 @@ sudo: required
 dist: trusty
 group: edge
 language: node_js
+
 cache:
   directories:
     - .cached_tools
     - node_modules
-addons:
-  # Run tests that require a browser on SauceLabs CI provider.
-  # Read more at: https://saucelabs.com
-  sauce_connect: true
-  jwt:
-    secure: NfCHCQULhYH0JUobRTBGF4QuQxMoj0Zs9iH71oSgI+eW7ClpNDp0cEF8h+IelTdPGQY7T9Kz4tyrZkUeXD5Mi/jjZT0YnjxSS8Ip6rRRxPDCWEmxbhOrZTEBXYfa4vqCY7rLnor8g579WOZ+RyoiotPC8tlc955nEgBk1jDxyAgXoUy0SdA/05r6A2IqKfs95u+yq0nsYqYJBj/3onx2SQv94eMQ7qq9GMhsAWMoNzLsBfU8AkZLsJ2w/W2p9tQURNk1hgCEewMwe6E6+G3XMAnDoIXBHkRAU335FBUE+f2kZ5Gl3GKE8pvWJaUWLePzfBvlmzCi4GW6lPlrRE5m+3wiiSzcbEAJnWOVPBrD/6mogYaJ5RijKzWk5o91eV8lU/lttp0hpH7PdWj1CEZk7EmyKO7ZF7ScALOZgs/dGyGgWcAvA0zwCDzdxXIitq9Eegc0xU+bB9jyJgi4dV9H1T1prwtS/TdhBU6sXKEjFVIgPUQa/TqBgaSs634kqRueH3bNfSD8Nf655AFeSgwdGiW0pBDm/WESftFWBMW3eV+KYtBFmGU/b3g+eEmd04j+lIOkK6EzU1QetUCKhpeMc5509So/+k4XghPHldWYzRldpY0kbp32VnAY8egsDdAHxgPrs2mTIDD1W//D/XJI9J072/z47GN4Af5zryz/3Nc=
-matrix:
-  include:
-    - node_js: 8.6.0
-      env:
-      - BUILD_SUITE=static-analysis
-    - node_js: 8.6.0
-      env:
-      - BUILD_SUITE=e2e
-      - SAUCE_USERNAME=k8s-dashboard-ci
-      - KUBE_DASHBOARD_KUBECONFIG=$HOME/.kube/config
-    - node_js: 8.6.0
-      env:
-      - BUILD_SUITE=code-check
-      - SAUCE_USERNAME=k8s-dashboard-ci
+
+# All jobs and stages should run this first.
 before_script:
   - eval "$(gimme 1.9.2)"
   - docker --version
-script:
-  - 'case ${BUILD_SUITE} in
-      static-analysis)
-        npm run check;
-        ;;
-      unit-tests)
-        npm run test:coverage;
-        ;;
-      e2e)
-        npm run cluster;
-        npm run e2e;
-        ;;
-    esac'
-after_success:
-  - 'if [ ${BUILD_SUITE} = "e2e" ]; then
-      if ([ ${TRAVIS_PULL_REQUEST} = "false" ] && [ -n "${DOCKER_USER}" && [ -n "${DOCKER_PASS}" ]); then
-        docker login -u $DOCKER_USER -p $DOCKER_PASS;
-        npm run docker-push:head:cross;
-      else
-        echo "This is not master build or Docker credentials are missing. Image will not be pushed."
-      fi
-    else
-      bash <(curl -s https://codecov.io/bash);
-    fi'
+
+node_js: 8.6.0
+jobs:
+  include:
+    - stage: test
+      script: npm run check:static
+    - # stage name not required, will continue to use 'test'
+      addons:
+        # Run tests that require a browser on SauceLabs CI provider.
+        # Read more at: https://saucelabs.com
+        sauce_connect: true
+        jwt:
+          secure: NfCHCQULhYH0JUobRTBGF4QuQxMoj0Zs9iH71oSgI+eW7ClpNDp0cEF8h+IelTdPGQY7T9Kz4tyrZkUeXD5Mi/jjZT0YnjxSS8Ip6rRRxPDCWEmxbhOrZTEBXYfa4vqCY7rLnor8g579WOZ+RyoiotPC8tlc955nEgBk1jDxyAgXoUy0SdA/05r6A2IqKfs95u+yq0nsYqYJBj/3onx2SQv94eMQ7qq9GMhsAWMoNzLsBfU8AkZLsJ2w/W2p9tQURNk1hgCEewMwe6E6+G3XMAnDoIXBHkRAU335FBUE+f2kZ5Gl3GKE8pvWJaUWLePzfBvlmzCi4GW6lPlrRE5m+3wiiSzcbEAJnWOVPBrD/6mogYaJ5RijKzWk5o91eV8lU/lttp0hpH7PdWj1CEZk7EmyKO7ZF7ScALOZgs/dGyGgWcAvA0zwCDzdxXIitq9Eegc0xU+bB9jyJgi4dV9H1T1prwtS/TdhBU6sXKEjFVIgPUQa/TqBgaSs634kqRueH3bNfSD8Nf655AFeSgwdGiW0pBDm/WESftFWBMW3eV+KYtBFmGU/b3g+eEmd04j+lIOkK6EzU1QetUCKhpeMc5509So/+k4XghPHldWYzRldpY0kbp32VnAY8egsDdAHxgPrs2mTIDD1W//D/XJI9J072/z47GN4Af5zryz/3Nc=
+      script: npm run test:coverage
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+      env:
+        - SAUCE_USERNAME=k8s-dashboard-ci
+    - # stage name not required, will continue to use 'test'
+      addons:
+        # Run tests that require a browser on SauceLabs CI provider.
+        # Read more at: https://saucelabs.com
+        sauce_connect: true
+        jwt:
+          secure: NfCHCQULhYH0JUobRTBGF4QuQxMoj0Zs9iH71oSgI+eW7ClpNDp0cEF8h+IelTdPGQY7T9Kz4tyrZkUeXD5Mi/jjZT0YnjxSS8Ip6rRRxPDCWEmxbhOrZTEBXYfa4vqCY7rLnor8g579WOZ+RyoiotPC8tlc955nEgBk1jDxyAgXoUy0SdA/05r6A2IqKfs95u+yq0nsYqYJBj/3onx2SQv94eMQ7qq9GMhsAWMoNzLsBfU8AkZLsJ2w/W2p9tQURNk1hgCEewMwe6E6+G3XMAnDoIXBHkRAU335FBUE+f2kZ5Gl3GKE8pvWJaUWLePzfBvlmzCi4GW6lPlrRE5m+3wiiSzcbEAJnWOVPBrD/6mogYaJ5RijKzWk5o91eV8lU/lttp0hpH7PdWj1CEZk7EmyKO7ZF7ScALOZgs/dGyGgWcAvA0zwCDzdxXIitq9Eegc0xU+bB9jyJgi4dV9H1T1prwtS/TdhBU6sXKEjFVIgPUQa/TqBgaSs634kqRueH3bNfSD8Nf655AFeSgwdGiW0pBDm/WESftFWBMW3eV+KYtBFmGU/b3g+eEmd04j+lIOkK6EzU1QetUCKhpeMc5509So/+k4XghPHldWYzRldpY0kbp32VnAY8egsDdAHxgPrs2mTIDD1W//D/XJI9J072/z47GN4Af5zryz/3Nc=
+      script:
+        - npm run cluster
+        - npm run test:e2e
+      env:
+        - SAUCE_USERNAME=k8s-dashboard-ci
+        - KUBE_DASHBOARD_KUBECONFIG=$HOME/.kube/config
+    - stage: deploy
+      script:
+        - docker login -u $DOCKER_USER -p $DOCKER_PASS
+        - npm run docker-push:head:cross
+
+# Define stages order.
+stages:
+  - test
+  - name: deploy
+    if: branch = master AND type not (pull_request)

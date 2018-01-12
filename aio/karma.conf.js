@@ -64,7 +64,7 @@ module.exports = function(config) {
 
   // Use custom browser configuration when running on Travis CI.
   if (!!process.env.TRAVIS) {
-    config.reporters.push('saucelabs');
+    configuration.reporters.push('saucelabs');
 
     let testName;
     if (process.env.TRAVIS) {
@@ -78,24 +78,24 @@ module.exports = function(config) {
       testName = 'Local karma tests';
     }
 
-    config.sauceLabs = {
+    configuration.sauceLabs = {
       testName: testName,
       connectOptions: {port: 5757, logfile: 'sauce_connect.log'},
       public: 'public',
     },
-    config.customLaunchers = {
+    configuration.customLaunchers = {
       sl_firefox: {base: 'SauceLabs', browserName: 'firefox'},
       sl_ie: {base: 'SauceLabs', browserName: 'internet explorer'},
       // Chrome must be last to compute coverage correctly.
       sl_chrome: {base: 'SauceLabs', browserName: 'chrome'},
     };
-    config.browsers = Object.keys(config.customLaunchers);
+    configuration.browsers = Object.keys(configuration.customLaunchers);
 
     // Set large capture timeout to prevent timeouts when executing on saucelabs.
-    config.captureTimeout = 5 * 60 * 1000;  // 5 minutes.
+    configuration.captureTimeout = 5 * 60 * 1000;  // 5 minutes.
 
     // Limit concurrency to not exhaust saucelabs resources for the CI user.
-    config.concurrency = 1;
+    configuration.concurrency = 1;
   }
 
   config.set(configuration);
