@@ -47,7 +47,7 @@
     "format:frontend:html": "./aio/scripts/format.sh --html",
     "format:backend": "goimports -w src/app/backend",
     "postinstall": "webdriver-manager update",
-    "clean": "rm -rf .go_workspace .tmp .tools coverage dist npm-debug.log",
+    "clean": "rm -rf .go_workspace .tmp .tools coverage dist npm-debug.log"
   },
   "dependencies": {
     "@angular/animations": "^5.1.3",
