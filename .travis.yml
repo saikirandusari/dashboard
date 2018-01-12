@@ -19,6 +19,9 @@ matrix:
   include:
     - node_js: 8.6.0
       env:
+      - BUILD_SUITE=static-analysis
+    - node_js: 8.6.0
+      env:
       - BUILD_SUITE=e2e
       - SAUCE_USERNAME=k8s-dashboard-ci
       - KUBE_DASHBOARD_KUBECONFIG=$HOME/.kube/config
@@ -30,12 +33,18 @@ before_script:
   - eval "$(gimme 1.9.2)"
   - docker --version
 script:
-  - 'if [ ${BUILD_SUITE} = "e2e" ]; then
-      ./aio/scripts/start-cluster.sh;
-      npm run e2e;
-    else
-      npm run check:code-quality;
-    fi'
+  - 'case ${BUILD_SUITE} in
+      static-analysis)
+        npm run check;
+        ;;
+      unit-tests)
+        npm run test:coverage;
+        ;;
+      e2e)
+        npm run cluster;
+        npm run e2e;
+        ;;
+    esac'
 after_success:
   - 'if [ ${BUILD_SUITE} = "e2e" ]; then
       if ([ ${TRAVIS_PULL_REQUEST} = "false" ] && [ -n "${DOCKER_USER}" && [ -n "${DOCKER_PASS}" ]); then
