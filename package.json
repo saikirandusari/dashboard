@@ -40,7 +40,7 @@
     "lint:frontend:code": "tslint -c tslint.json --project . -t codeFrame",
     "lint:frontend:styles": "./node_modules/sass-lint/bin/sass-lint.js -c .sass-lint.yml 'src/app/frontend/**/*.scss' -v -q",
     "lint:backend": "./aio/scripts/lint-backend.sh",
-    "format": "concurrently \"npm run format-frontend\" \"npm run format-backend\"",
+    "format": "concurrently \"npm run format:frontend\" \"npm run format:backend\"",
     "format:frontend": "./aio/scripts/format.sh --code --styles --html",
     "format:backend": "goimports -w src/app/backend",
     "postinstall": "webdriver-manager update",
